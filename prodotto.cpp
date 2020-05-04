@@ -1,5 +1,8 @@
-#include "../ProgettoP2/prodotto.h"
+#include "prodotto.h"
 #include <iostream>
 
 using namespace std;
 
+Prodotto::Prodotto(Prodotto *ptr){
+    id = ptr->GetId();
+}

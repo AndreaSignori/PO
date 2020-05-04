@@ -33,7 +33,9 @@ SOURCES += \
     shampoo.cpp \
     shamcolor.cpp \
     accessorio.cpp \
-    strumento.cpp
+    strumento.cpp \
+    testwindow.cpp \
+    container.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -44,7 +46,9 @@ HEADERS += \
     shampoo.h \
     shamcolor.h \
     accessorio.h \
-    strumento.h
+    strumento.h \
+    testwindow.h \
+    container.h
 
 FORMS += \
         mainwindow.ui
