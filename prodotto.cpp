@@ -23,12 +23,5 @@ void Prodotto::SetCodice(string newcodice) {
 }
 
 void Prodotto::SetDiscount(int newdiscount = 0) {
-	switch (newdiscount)
-	{
-	case <= 0: 
-		break;
-	default:
-		break;
-	}
 
 }

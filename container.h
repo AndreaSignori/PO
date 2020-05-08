@@ -9,7 +9,8 @@ class Container : public QWidget
 {
 private:
     std::vector <Prodotto*> v;
-
+    QTableWidget* table;
+    void entryTable();
 public:
     Container(QWidget* parent = nullptr);
 
