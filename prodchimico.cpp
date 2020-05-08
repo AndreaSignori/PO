@@ -1,4 +1,3 @@
-#include "../ProgettoP2/prodchimico.h"
-#include <iostream>
+#include "prodchimico.h"
 
 using namespace std;
