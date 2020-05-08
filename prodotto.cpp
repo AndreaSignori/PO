@@ -1,4 +1,5 @@
 #include "prodotto.h"
+#include <algorithm>
 
 using namespace std;
 
@@ -23,11 +24,6 @@ void Prodotto::SetCodice(string newcodice) {
 }
 
 void Prodotto::SetDiscount(int newdiscount = 0) {
-	switch (newdiscount)
-	{
-	case <= 0: 
-		break;
-	default:
-		break;
-	}
+
+	discount = min(100, max(0, newdiscount));
 }
