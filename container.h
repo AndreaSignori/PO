@@ -12,8 +12,8 @@ private:
     QTableWidget* table;
     void entryTable();
 public:
-    Container(QWidget* parent = nullptr);
+    Container(QWidget* parent = 0);
 
-    ~Container();
+    ~Container() {};
 };
 #endif // CONTAINER_H
