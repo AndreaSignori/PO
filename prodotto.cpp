@@ -18,6 +18,7 @@ int Prodotto::GetDiscount() const {
 	return discount;
 }
 
+<<<<<<< HEAD
 void Prodotto::SetDiscount(int newdiscount) {
     /*if (newdiscount || newdiscount < 0) {
 		discount = 0;
@@ -40,4 +41,18 @@ void Prodotto::SetDiscount(int newdiscount) {
         discount = newdiscount;
         break;
     }
+=======
+void Prodotto::SetCodice(string newcodice) {
+
+}
+
+void Prodotto::SetDiscount(int newdiscount = 0) {
+	switch (newdiscount)
+	{
+	case <= 0: 
+		break;
+	default:
+		break;
+	}
+>>>>>>> 48dbae5ac0a053ec1b52f48df843c5a0f8b8f7ed
 }

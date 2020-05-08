@@ -8,7 +8,6 @@ private:
 
 public:
     ProdChimico () {}
-
     ~ProdChimico () {}
 };
 #endif // PRODCHIMICO_H
