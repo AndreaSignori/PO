@@ -9,7 +9,7 @@ private:
     std::string codice;
     std::string nome;
     float prezzo;
-    int discount;
+    int discount = 0;
     std::string casaprod;
     char foto;
 
@@ -21,13 +21,14 @@ public:
     std::string GetNome() const;
     float GetPrezzo() const;
     int GetDiscount() const;
-    
+
     void SetCodice(std::string newcodice);
     void SetNome(std::string newnome);
     void SetPrezzo(float newprezzo);
     void SetDiscount(int newdiscount);
     void SetCasaProd(std::string casaprod);
     void SetFoto(char path);
+
 };
 #endif // PRODOTTO_H
 
