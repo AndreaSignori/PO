@@ -2,11 +2,11 @@
 #define PRODOTTO_H
 
 #include <string>
-
+#include <QWidget>
 class Prodotto
 {
 private:
-    std::string codice;
+    QString codice;
     std::string nome;
     float prezzo;
     int discount = 0;
@@ -17,7 +17,7 @@ public:
     Prodotto();
     Prodotto(int x);
     virtual ~Prodotto() = 0;
-    std::string GetCodice() const;
+    QString GetCodice() const;
     std::string GetNome() const;
     float GetPrezzo() const;
     int GetDiscount() const;

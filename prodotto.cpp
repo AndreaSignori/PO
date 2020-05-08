@@ -3,7 +3,7 @@
 
 using namespace std;
 
-std::string Prodotto::GetCodice() const {
+QString Prodotto::GetCodice() const {
 	return codice;
 }
 
@@ -25,9 +25,8 @@ void Prodotto::SetCodice(string newcodice) {
 
 void Prodotto::SetDiscount(int newdiscount = 0) {
 
-<<<<<<< HEAD
+
 	discount = min(100, max(0, newdiscount));
 }
-=======
-}
->>>>>>> 17bd80ad569300e9e07a6d0323c160d43040292a
+
+
