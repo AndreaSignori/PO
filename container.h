@@ -1,12 +1,16 @@
 #ifndef CONTAINER_H
 #define CONTAINER_H
 #include "prodotto.h"
-class Container
+#include <QWidget>
+#include <QtWidgets>
+
+class Container : public QWidget
 {
 private:
     Prodotto *ptr;
+
 public:
-    Container(Prodotto *punt = nullptr){};
+    Container(Prodotto *punt = nullptr, QWidget* parent = nullptr);
 
     ~Container();
 };

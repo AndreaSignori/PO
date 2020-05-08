@@ -7,10 +7,18 @@
 class Windows : public QWidget
 {
 private:
-    void createWindow(QWidget *parent);
-    void createMenuBar(QVBoxLayout *layout);
+    void createWindow();
+    void createMenuBar();
+    void createTabWidget();
+    QWidget* createTab();
+    QWidget* createForm();
+    QVBoxLayout* lay;
+
 private slots:
     void popUP();
+signals:
+    void change();
+
 public:
     Windows(QWidget *parent=0);
 
