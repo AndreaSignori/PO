@@ -3,14 +3,15 @@
 #include "prodotto.h"
 #include <QWidget>
 #include <QtWidgets>
+#include <vector>
 
 class Container : public QWidget
 {
 private:
-    Prodotto *ptr;
+    std::vector <Prodotto*> v;
 
 public:
-    Container(Prodotto *punt = nullptr, QWidget* parent = nullptr);
+    Container(QWidget* parent = nullptr);
 
     ~Container();
 };
