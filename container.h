@@ -10,7 +10,9 @@ class Container : public QWidget
 private:
     std::vector <Prodotto*> v;
     QTableWidget* table;
+    QDialog* dial;
     void entryTable();
+    void baseDial();
 public:
     Container(QWidget* parent = 0);
 

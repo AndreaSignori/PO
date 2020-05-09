@@ -3,7 +3,7 @@
 
 using namespace std;
 
-QString Prodotto::GetCodice() const {
+std::string Prodotto::GetCodice() const {
 	return codice;
 }
 

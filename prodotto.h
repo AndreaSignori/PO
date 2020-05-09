@@ -6,7 +6,7 @@
 class Prodotto
 {
 private:
-    QString codice;
+    std::string codice;
     std::string nome;
     float prezzo;
     int discount = 0;
@@ -17,7 +17,7 @@ public:
     Prodotto();
     Prodotto(int x);
     virtual ~Prodotto() = 0;
-    QString GetCodice() const;
+    std::string GetCodice() const;
     std::string GetNome() const;
     float GetPrezzo() const;
     int GetDiscount() const;

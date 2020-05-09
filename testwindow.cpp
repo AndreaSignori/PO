@@ -48,7 +48,7 @@ void Windows::createMenuBar(){
 void Windows::createTabWidget(){
     QTabWidget* tabwid = new QTabWidget(this);
 
-    tabwid->addTab(createTab(), "Prodotti");
+    tabwid->addTab(new Container(this), "Prodotti");
     //tabwid->addTab();
     //tabwid->addTab();
 
