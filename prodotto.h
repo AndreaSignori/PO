@@ -10,7 +10,7 @@ private:
     float prezzo;
     int discount = 0;
     std::string casaprod;
-    char foto;
+    char path;
 
 public:
     Prodotto();
@@ -26,7 +26,7 @@ public:
     void SetPrezzo(float newprezzo);
     void SetDiscount(int newdiscount);
     void SetCasaProd(std::string casaprod);
-    void SetFoto(char path);
+    void SetFoto(std::string newpath);
 
 };
 #endif // PRODOTTO_H

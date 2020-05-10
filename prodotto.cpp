@@ -30,7 +30,7 @@ void Prodotto::SetNome(string newnome) {
 }
 
 void Prodotto::SetPrezzo(float newprezzo) {
-	if(newprezzo >= 0.0)
+	if (newprezzo >= 0.0)
 		prezzo = newprezzo
 }
 
@@ -38,4 +38,12 @@ void Prodotto::SetDiscount(int newdiscount = 0) {
 	discount = min(100, max(0, newdiscount));
 }
 
+void Prodotto::SetCasaProd(string newcasaprod) {
+	if (newcasaprod != "")
+		casaprod = newcasaprod;
+}
 
+void Prodotto::SetFoto(string newpath) {
+	if (newpath != "")
+		path = newpath;
+}
