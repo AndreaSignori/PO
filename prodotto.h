@@ -2,7 +2,6 @@
 #define PRODOTTO_H
 
 #include <string>
-#include <QWidget>
 class Prodotto
 {
 private:
