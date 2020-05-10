@@ -20,12 +20,21 @@ int Prodotto::GetDiscount() const {
 }
 
 void Prodotto::SetCodice(string newcodice) {
+	if (newcodice != "")
+		codice = newcodice;
+}
 
+void Prodotto::SetNome(string newnome) {
+	if (newnome != "")
+		nome = newnome;
+}
+
+void Prodotto::SetPrezzo(float newprezzo) {
+	if(newprezzo >= 0.0)
+		prezzo = newprezzo
 }
 
 void Prodotto::SetDiscount(int newdiscount = 0) {
-
-
 	discount = min(100, max(0, newdiscount));
 }
 
