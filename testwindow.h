@@ -12,7 +12,10 @@ private:
     void createTabWidget();
     QWidget* createTab();
     QWidget* createForm();
+    void setUpTable();
     QVBoxLayout* lay;
+    QTableWidget* table;
+    Container* cont;
 
 private slots:
     void popUP();
