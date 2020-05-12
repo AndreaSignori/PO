@@ -3,6 +3,8 @@
 #include "prodotto.h"
 #include <QWidget>
 #include <QtWidgets>
+#include <QtCore>
+#include <QTableWidget>
 #include <vector>
 
 class Container : public QWidget
@@ -13,9 +15,10 @@ private:
     QDialog* dial;
     void entryTable();
     void baseDial();
-public:
-    Container(QWidget* parent = 0);
 
-    ~Container() {};
+public:
+    Container(QWidget* parent = nullptr);
+
+    ~Container() {}
 };
 #endif // CONTAINER_H

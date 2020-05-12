@@ -31,7 +31,7 @@ void Prodotto::SetNome(string newnome) {
 
 void Prodotto::SetPrezzo(float newprezzo) {
 	if (newprezzo >= 0.0)
-		prezzo = newprezzo
+        prezzo = newprezzo;
 }
 
 void Prodotto::SetDiscount(int newdiscount = 0) {

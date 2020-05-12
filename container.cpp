@@ -1,5 +1,5 @@
 #include "../ProgettoP2/PO/container.h"
-#include <QWidget>
+
 
 Container::Container(QWidget *parent): QWidget(parent)
 {
@@ -20,13 +20,17 @@ Container::Container(QWidget *parent): QWidget(parent)
 
 void Container::entryTable(){
     int i = 0;
-    for(auto it = v.begin(); it != v.end(); ++it){
+    /*for(auto it = v.begin(); it != v.end(); ++it){
         QTableWidgetItem* item = new QTableWidgetItem(QString::fromStdString((*it)->GetCodice()));
         table->setItem(i,0,item);
-    }/*
+    }*/
     QTableWidgetItem* item = new QTableWidgetItem("ciao");
+    QTableWidgetItem* item1 = new QTableWidgetItem("ciao1");
     table->insertRow(0);
-    table->setItem(0,0,item);*/
+    table->setItem(0,0,item);
+    table->setItem(0,1,item1);
+
+
 }
 
 void Container::baseDial()

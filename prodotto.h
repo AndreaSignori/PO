@@ -10,7 +10,7 @@ private:
     float prezzo;
     int discount = 0;
     std::string casaprod;
-    char path;
+    std::string path;
 
 public:
     Prodotto();
