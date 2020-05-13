@@ -19,8 +19,8 @@ public:
     std::string GetNome() const;
     float GetPrezzoInt() const;
     int GetDiscount() const;
-    float GetPrezzo() const;
     float GetPrezzoEffettivo() const;
+    std::stri
 
 
     void SetCodice(std::string newcodice);
