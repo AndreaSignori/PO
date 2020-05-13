@@ -12,7 +12,7 @@ public:
     ProdChimico () {}
     ~ProdChimico () {}
 
-    int GetQuantita();
+    int GetQuantita() const;
     bool GetTossico() const;
 
     void SetTossico(bool toxic);

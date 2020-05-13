@@ -6,14 +6,14 @@ bool ProdChimico::GetTossico() const {
 	return tossico;
 }
 
-int ProdChimico::GettQuantita() const {
+int ProdChimico::GetQuantita() const {
 	return quantitaml;
 }
 
-void SetTossico(bool toxic) {
+void ProdChimico::SetTossico(bool toxic) {
 	tossico = toxic;
 }
 
-void SetQuantita(int quantita) {
+void ProdChimico::SetQuantita(int quantita) {
 	quantitaml = quantita;
 }
