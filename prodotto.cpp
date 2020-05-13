@@ -2,6 +2,14 @@
 #include <algorithm>
 
 using namespace std;
+Prodotto::Prodotto(){
+
+}
+
+Prodotto::~Prodotto()
+{
+
+}
 
 std::string Prodotto::GetCodice() const {
 	return codice;

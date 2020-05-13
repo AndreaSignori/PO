@@ -18,6 +18,7 @@ private:
     Container* cont;
     QDialogButtonBox* bBox;
     QFormLayout* layF;
+    QLineEdit* ql[5];
 private slots:
     void popUP();
     void accept();

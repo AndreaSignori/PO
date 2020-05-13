@@ -7,8 +7,8 @@ class Strumento : public Attrezzatura
 private:
 
 public:
-    Strumento() {}
+    Strumento() {};
 
-    ~Strumento() {}
+    ~Strumento() {};
 };
 #endif // STRUMENTO_H

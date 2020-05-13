@@ -83,13 +83,18 @@ QWidget* Windows::createForm(){
 
     layF = new QFormLayout();
 
+
     for(int i = 0; i < table->columnCount(); i++ )
     {
+        ql[i] = new QLineEdit();
         //layF->addWidget(new QLabel(table->horizontalHeaderItem(i)->text()+":"));
         if(table->item(table->currentRow(),i)){
-            layF->addRow(new QLabel(table->horizontalHeaderItem(i)->text()),new QLineEdit(table->item(table->currentRow(),i)->text()));
+            ql[i]->setText(table->item(table->currentRow(),i)->text());
+            layF->addRow(new QLabel(table->horizontalHeaderItem(i)->text()), ql[i]);
+            //new QLineEdit(table->item(table->currentRow(),i)->text())
         }else{
-            layF->addRow(new QLabel(table->horizontalHeaderItem(i)->text()),new QLineEdit(" ",this));
+            ql[i]->setText(" ");
+            layF->addRow(new QLabel(table->horizontalHeaderItem(i)->text()),ql[i]);
         }
 
     }
@@ -141,7 +146,13 @@ void Windows::setUpTable()
 
     }else
     {
-
+        table->insertRow(table->rowCount());
+        table->selectRow(0);
+        table->setItem(table->currentRow(),0,new QTableWidgetItem(QChar(cont->getProd(0)->GetCodice())));
+        table->setItem(table->currentRow(),1,new QTableWidgetItem(QChar(cont->getProd(0)->GetNome())));
+        table->setItem(table->currentRow(),2,new QTableWidgetItem(cont->getProd(0)->GetPrezzoInt()));
+        table->setItem(table->currentRow(),3,new QTableWidgetItem(cont->getProd(0)->GetDiscount()));
+        //table->setItem(table->currentRow(),4,new QTableWidgetItem(cont->getProd(0)->ge()));
     }
 
     QSizePolicy* pTable = new QSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
@@ -157,9 +168,5 @@ void Windows::popUP(){
 
 void Windows::accept()
 {
-    for(auto *it = layF->children().begin(); it != layF->children().end(); it++){
-        if(dynamic_cast<QLineEdit*> (*it)){
 
-        }
-    }
 }
