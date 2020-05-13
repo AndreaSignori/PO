@@ -148,10 +148,10 @@ void Windows::setUpTable()
     {
         table->insertRow(table->rowCount());
         table->selectRow(0);
-        table->setItem(table->currentRow(),0,new QTableWidgetItem(QChar(cont->getProd(0)->GetCodice())));
-        table->setItem(table->currentRow(),1,new QTableWidgetItem(QChar(cont->getProd(0)->GetNome())));
-        table->setItem(table->currentRow(),2,new QTableWidgetItem(cont->getProd(0)->GetPrezzoInt()));
-        table->setItem(table->currentRow(),3,new QTableWidgetItem(cont->getProd(0)->GetDiscount()));
+        table->setItem(table->currentRow(),0,new QTableWidgetItem(QString::fromStdString(cont->getProd(0)->GetCodice())));
+        table->setItem(table->currentRow(),1,new QTableWidgetItem(QString::fromStdString(cont->getProd(0)->GetNome())));
+        table->setItem(table->currentRow(),2,new QTableWidgetItem(QString::number(cont->getProd(0)->GetPrezzoInt())));
+        table->setItem(table->currentRow(),3,new QTableWidgetItem(QString::number(cont->getProd(0)->GetDiscount())));
         //table->setItem(table->currentRow(),4,new QTableWidgetItem(cont->getProd(0)->ge()));
     }
 

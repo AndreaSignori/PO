@@ -20,7 +20,7 @@ public:
     float GetPrezzoInt() const;
     int GetDiscount() const;
     float GetPrezzoEffettivo() const;
-    std::stri
+
 
 
     void SetCodice(std::string newcodice);
