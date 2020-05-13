@@ -51,7 +51,3 @@ void Prodotto::SetCasaProd(string newcasaprod) {
 		casaprod = newcasaprod;
 }
 
-void Prodotto::SetFoto(string newpath) {
-	if (newpath != "")
-		path = newpath;
-}
