@@ -11,8 +11,16 @@ std::string Prodotto::GetNome() const {
 	return nome;
 }
 
-float Prodotto::GetPrezzo() const {
+float Prodotto::GetPrezzoInt() const {
 	return prezzo;
+}
+
+float Prodotto::GetPrezzo() const {
+	return (prezzo*(100 - discount)) / 100;
+}
+
+float Prodotto::GetPrezzoEffettivo() const {
+	return ((100 - discount) * prezzo) / 100;
 }
 
 int Prodotto::GetDiscount() const {
@@ -31,7 +39,7 @@ void Prodotto::SetNome(string newnome) {
 
 void Prodotto::SetPrezzo(float newprezzo) {
 	if (newprezzo >= 0.0)
-        prezzo = newprezzo;
+		prezzo = newprezzo;
 }
 
 void Prodotto::SetDiscount(int newdiscount = 0) {

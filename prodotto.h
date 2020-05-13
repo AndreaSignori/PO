@@ -10,7 +10,7 @@ private:
     float prezzo;
     int discount = 0;
     std::string casaprod;
-    std::string path;
+    char path;
 
 public:
     Prodotto();
@@ -18,8 +18,11 @@ public:
     virtual ~Prodotto() = 0;
     std::string GetCodice() const;
     std::string GetNome() const;
-    float GetPrezzo() const;
+    float GetPrezzoInt() const;
     int GetDiscount() const;
+    float GetPrezzo() const;
+    float GetPrezzoEffettivo() const;
+
 
     void SetCodice(std::string newcodice);
     void SetNome(std::string newnome);
