@@ -13,7 +13,7 @@ void Container::modVett(int index, QObjectList *itF)
     for(auto it = itF->begin(); it != itF.end() ; it++)
     {
         if(dynamic_cast <QLineEdit*> (it)){
-
+            
         }
     }
 }

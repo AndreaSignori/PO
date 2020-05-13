@@ -16,9 +16,11 @@ private:
     QVBoxLayout* lay;
     QTableWidget* table;
     Container* cont;
-
+    QDialogButtonBox* bBox;
+    QFormLayout* layF;
 private slots:
     void popUP();
+    void accept();
 signals:
     void change();
 

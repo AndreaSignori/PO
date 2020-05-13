@@ -157,9 +157,9 @@ void Windows::popUP(){
 
 void Windows::accept()
 {
-    for(auto *it = layF->children().begin(); it != layF->children().end(); it++){
-        if(dynamic_cast<QLineEdit*> (*it)){
-
-        }
+    auto *itForm = layF->children().begin();
+    int i = 0;
+    while(i < table->columnCount() && itForm != layF->children().end()){
+        
     }
 }
