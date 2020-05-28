@@ -1,23 +1,21 @@
 #ifndef PRODOTTO_H
 #define PRODOTTO_H
 
+#include <myexception.h>
 #include <string>
 
 class Prodotto
 {
 private:
-    std::string codice;
-    std::string nome;
+    std::string codice, nome, casaProd, img64;
     float prezzo;
-    int discount = 0;
-    std::string casaprod;
-    std::string img64;
+    int discount;
 public:
-    Prodotto();
-    Prodotto(int x);
+    Prodotto(std::string c = "", std::string n = "", std::string cP = "",std::string img = "", float p = 0.0 , int dis = 0);
+
     virtual ~Prodotto() = 0;
 
-    
+
     std::string GetCodice() const;
     std::string GetNome() const;
     float GetPrezzoInt() const;
@@ -25,7 +23,7 @@ public:
     std::string GetCasaProd() const;
     std::string getImg() const;
 
-
+    void SetImg64(std::string img);
     void SetCodice(std::string newcodice);
     void SetNome(std::string newnome);
     void SetPrezzo(float newprezzo);
@@ -42,53 +40,83 @@ private:
     bool tossico;
 
 public:
-    ProdChimico() {}
-    ~ProdChimico() {}
+    ProdChimico(std::string c = "", std::string n = "", std::string cP = "",std::string img = "", float p = 0.0 , int dis = 0, int q = 0, bool tx = false) ;
+    ProdChimico(const ProdChimico *pC);
+
+    ~ProdChimico() ;
 
     int GetQuantita() const;
     bool GetTossico() const;
 
     void SetTossico(bool toxic);
     void SetQuantita(int quantita);
-};
 
-class Attrezzatura : virtual public Prodotto
-{
-private:
+    //clone
+    virtual ProdChimico* clone() const;
 
-public:
-    Attrezzatura() {}
-
-    ~Attrezzatura() {}
+    //overload
+    virtual ProdChimico& operator=(const ProdChimico& pC);
 };
 
 class Shampoo : virtual public ProdChimico
 {
+protected:
+    enum TipoCapelli { GENERALE, RICCI, LISCI, COLORATI, ROVINATI };
+    enum TipoShampoo { GENERICO, VOLUMIZZANTE, ANTICADUTA, SEBOREGOLATORE, ANTIFORFORA, COLORANTE };
 private:
-    enum TipoCapelli { GENERALE, RICCI, LISCI, COLORATI, ROVITANTI };
-    static char const tipocapelli_nome[9][4];
-    enum TipoShampoo { VOLUMIZZANTE, ANTICADUTA, SEBOREGOLATORE, ANTIFORFORA, COLORANTE };
-    static char const tiposhampoo_nome[20][4];
+
+    static char const tipocapelli_nome[5][9];
+
+    static char const tiposhampoo_nome[6][15];
+
+    TipoCapelli tC;
+    TipoShampoo tS;
+
 public:
-    Shampoo() {}
-    ~Shampoo() {}
+    Shampoo(std::string c = "", std::string n = "", std::string cP = "",std::string img = "", float p = 0.0 , int dis = 0,int q = 0, bool tx = false,TipoCapelli cap = TipoCapelli::GENERALE, TipoShampoo s = TipoShampoo::GENERICO);
+    Shampoo(const Shampoo* s);
+
+
+    ~Shampoo() { }
 
     /*Set e Get*/
-    TipoCapelli getTipoCapelli() const;
-    virtual TipoShampoo getTipoShampoo() const;
+    TipoCapelli getTC() const;
+    TipoShampoo getTS() const;
+    const char* getTipoCapelli() const;
+    const char* getTipoShampoo() const;
 
     void setTipoCapelli(const TipoCapelli& type);
     void setTipoShampoo(const TipoShampoo& type);
+
+    virtual Shampoo* clone() const;
+
+    //overload
+    virtual Shampoo& operator =(const Shampoo& s);
 };
 
 class Tinte : virtual public ProdChimico
 {
+protected:
+    enum TipoTinta{OLIO, CREMA};
 private:
 
+    std::string numero;
+    static char const tipoT[2][6];
+    TipoTinta tt;
 public:
-    Tinte() {}
-
+    Tinte(std::string c = "", std::string n = "", std::string cP = "",std::string img = "", float p = 0.0 , int dis = 0, int q = 0, bool tx = false, std::string num = "", TipoTinta t = TipoTinta::CREMA );
+    Tinte(const Tinte* t);
     ~Tinte() {}
+
+    std::string getNumero() const;
+    void setNumero(const std::string &value);
+    TipoTinta getTt() const;
+    void setTt(const TipoTinta &value);
+
+    virtual Tinte* clone() const;
+
+    //overload
+    virtual Tinte& operator =(const Tinte& t);
 };
 
 class ShamColor : public Tinte, public Shampoo
@@ -96,30 +124,14 @@ class ShamColor : public Tinte, public Shampoo
 private:
 
 public:
-    ShamColor() {}
-
+    ShamColor(std::string c = "", std::string n = "", std::string cP = "",std::string img = "", float p = 0.0 , int dis = 0, int q = 0, bool tx = false, std::string num = "", TipoTinta t = TipoTinta::CREMA, TipoCapelli cap = TipoCapelli::GENERALE, TipoShampoo s = TipoShampoo::GENERICO);
+    ShamColor(const ShamColor* sC);
     ~ShamColor() {}
+
+    virtual ShamColor* clone() const;
+
+    //overload
+    virtual ShamColor& operator =(const ShamColor& sC);
 };
-
-class Strumento : public Attrezzatura
-{
-private:
-
-public:
-    Strumento() {};
-
-    ~Strumento() {};
-};
-
-class Accessorio : public Attrezzatura
-{
-private:
-
-public:
-    Accessorio() {}
-
-    ~Accessorio() {}
-};
-
-
 #endif // PRODOTTO_H
+
