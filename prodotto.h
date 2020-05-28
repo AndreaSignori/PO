@@ -38,7 +38,6 @@ public:
 
 #ifndef PRODCHIMICO_H
 #define PRODCHIMICO_H
-#include "prodotto.h"
 
 class ProdChimico : virtual public Prodotto
 {
@@ -60,7 +59,6 @@ public:
 
 #ifndef ATTREZZATURA_H
 #define ATTREZZATURA_H
-#include "prodotto.h"
 
 class Attrezzatura : virtual public Prodotto
 {
@@ -75,7 +73,6 @@ public:
 
 #ifndef SHAMPOO_H
 #define SHAMPOO_H
-#include "prodchimico.h"
 
 class Shampoo : virtual public ProdChimico
 {
@@ -99,7 +96,6 @@ public:
 
 #ifndef TINTE_H
 #define TINTE_H
-#include "prodchimico.h"
 
 class Tinte : virtual public ProdChimico
 {
@@ -114,8 +110,6 @@ public:
 
 #ifndef SHAMCOLOR_H
 #define SHAMCOLOR_H
-#include "tinte.h"
-#include "shampoo.h"
 
 class ShamColor : public Tinte, public Shampoo
 {
@@ -130,7 +124,6 @@ public:
 
 #ifndef STRUMENTO_H
 #define STRUMENTO_H
-#include "attrezzatura.h"
 
 class Strumento : public Attrezzatura
 {
@@ -145,7 +138,6 @@ public:
 
 #ifndef ACCESSORIO_H
 #define ACCESSORIO_H
-#include "attrezzatura.h"
 
 class Accessorio : public Attrezzatura
 {
