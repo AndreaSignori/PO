@@ -36,9 +36,6 @@ public:
 };
 #endif // PRODOTTO_H
 
-#ifndef PRODCHIMICO_H
-#define PRODCHIMICO_H
-
 class ProdChimico : virtual public Prodotto
 {
 private:
@@ -55,10 +52,6 @@ public:
     void SetTossico(bool toxic);
     void SetQuantita(int quantita);
 };
-#endif // PRODCHIMICO_H
-
-#ifndef ATTREZZATURA_H
-#define ATTREZZATURA_H
 
 class Attrezzatura : virtual public Prodotto
 {
@@ -69,10 +62,6 @@ public:
 
     ~Attrezzatura() {}
 };
-#endif // ATTREZZATURA_H
-
-#ifndef SHAMPOO_H
-#define SHAMPOO_H
 
 class Shampoo : virtual public ProdChimico
 {
@@ -92,10 +81,6 @@ public:
     void setTipoCapelli(const TipoCapelli& type);
     void setTipoShampoo(const TipoShampoo& type);
 };
-#endif // SHAMPOO_H
-
-#ifndef TINTE_H
-#define TINTE_H
 
 class Tinte : virtual public ProdChimico
 {
@@ -106,10 +91,6 @@ public:
 
     ~Tinte() {}
 };
-#endif // TINTE_H
-
-#ifndef SHAMCOLOR_H
-#define SHAMCOLOR_H
 
 class ShamColor : public Tinte, public Shampoo
 {
@@ -120,10 +101,6 @@ public:
 
     ~ShamColor() {}
 };
-#endif // SHAMCOLOR_H
-
-#ifndef STRUMENTO_H
-#define STRUMENTO_H
 
 class Strumento : public Attrezzatura
 {
@@ -134,10 +111,6 @@ public:
 
     ~Strumento() {};
 };
-#endif // STRUMENTO_H
-
-#ifndef ACCESSORIO_H
-#define ACCESSORIO_H
 
 class Accessorio : public Attrezzatura
 {
@@ -148,4 +121,3 @@ public:
 
     ~Accessorio() {}
 };
-#endif // ACCESSORIO_H
