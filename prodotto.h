@@ -34,7 +34,6 @@ public:
 
     float GetPrezzoEffettivo() const;
 };
-#endif // PRODOTTO_H
 
 class ProdChimico : virtual public Prodotto
 {
@@ -121,3 +120,6 @@ public:
 
     ~Accessorio() {}
 };
+
+
+#endif // PRODOTTO_H
