@@ -2,6 +2,7 @@
 #define PRODOTTO_H
 
 #include <string>
+
 class Prodotto
 {
 private:
@@ -10,17 +11,19 @@ private:
     float prezzo;
     int discount = 0;
     std::string casaprod;
-
+    std::string img64;
 public:
     Prodotto();
     Prodotto(int x);
     virtual ~Prodotto() = 0;
+
+    
     std::string GetCodice() const;
     std::string GetNome() const;
     float GetPrezzoInt() const;
     int GetDiscount() const;
-    float GetPrezzoEffettivo() const;
-
+    std::string GetCasaProd() const;
+    std::string getImg() const;
 
 
     void SetCodice(std::string newcodice);
@@ -29,6 +32,7 @@ public:
     void SetDiscount(int newdiscount);
     void SetCasaProd(std::string casaprod);
 
+    float GetPrezzoEffettivo() const;
 };
 #endif // PRODOTTO_H
 
