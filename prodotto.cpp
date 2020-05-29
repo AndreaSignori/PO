@@ -1,6 +1,6 @@
 #include "prodotto.h"
 #include <algorithm>
-
+#include <iostream>
 using namespace std;
 
 const char Shampoo::tipocapelli_nome[5][9] = {"GENERALE","RICCI","LISCI","COLORATI","ROVINATI"};
@@ -51,7 +51,7 @@ string Prodotto::GetCasaProd() const
     return casaProd;
 }
 
-string Prodotto::getImg() const
+string Prodotto::GetImg() const
 {
     return img64;
 }
@@ -95,7 +95,7 @@ ProdChimico::ProdChimico(string c , string n , string cP ,string img, float p , 
 }
 
 ProdChimico::ProdChimico(const ProdChimico *pC):
-    Prodotto(pC->GetCodice(),pC->GetNome(),pC->GetCasaProd(),pC->getImg(),pC->GetPrezzoInt(),pC->GetDiscount()),
+    Prodotto(pC->GetCodice(),pC->GetNome(),pC->GetCasaProd(),pC->GetImg(),pC->GetPrezzoInt(),pC->GetDiscount()),
     quantitaml(pC->GetQuantita()),
     tossico(pC->GetTossico())
 {
@@ -131,8 +131,21 @@ ProdChimico *ProdChimico::clone() const
 
 ProdChimico &ProdChimico::operator=(const ProdChimico &pC)
 {
-    *this =  new ProdChimico(pC.clone());
+    this->SetCodice(pC.GetCodice());
+    this->SetNome(pC.GetNome());
+    this->SetCasaProd(pC.GetCasaProd());
+    this->SetPrezzo(pC.GetPrezzoInt());
+    this->SetDiscount(pC.GetDiscount());
+    this->SetImg64(pC.GetImg());
+    this->SetQuantita(pC.GetQuantita());
+    this->SetTossico(pC.GetTossico());
     return *this;
+
+}
+
+ProdChimico *ProdChimico::operator*()
+{
+    return this;
 }
 
 //shampoo
@@ -145,8 +158,8 @@ Shampoo::Shampoo(string c, string n, string cP, string img, float p, int dis,int
 }
 
 Shampoo::Shampoo(const Shampoo *s):
-    Prodotto(s->GetCodice(),s->GetNome(),s->GetCasaProd(),s->getImg(),s->GetPrezzoInt(),s->GetDiscount()),
-    ProdChimico(s->GetCodice(),s->GetNome(),s->GetCasaProd(),s->getImg(),s->GetPrezzoInt(),s->GetDiscount(),s->GetTossico(),s->GetQuantita()),
+    Prodotto(s->GetCodice(),s->GetNome(),s->GetCasaProd(),s->GetImg(),s->GetPrezzoInt(),s->GetDiscount()),
+    ProdChimico(s->GetCodice(),s->GetNome(),s->GetCasaProd(),s->GetImg(),s->GetPrezzoInt(),s->GetDiscount(),s->GetTossico(),s->GetQuantita()),
     tC(s->getTC()),
     tS(s->getTS()){}
 
@@ -187,7 +200,16 @@ Shampoo *Shampoo::clone() const
 
 Shampoo &Shampoo::operator =(const Shampoo &s)
 {
-    *this = new Shampoo(s.clone());
+    this->SetCodice(s.GetCodice());
+    this->SetNome(s.GetNome());
+    this->SetCasaProd(s.GetCasaProd());
+    this->SetPrezzo(s.GetPrezzoInt());
+    this->SetDiscount(s.GetDiscount());
+    this->SetImg64(s.GetImg());
+    this->SetQuantita(s.GetQuantita());
+    this->SetTossico(s.GetTossico());
+    this->setTipoCapelli(s.getTC());
+    this->setTipoShampoo(s.getTS());
     return *this;
 }
 
@@ -224,7 +246,7 @@ Tinte::Tinte(string c, string n, string cP, string img, float p, int dis, int q,
 }
 
 Tinte::Tinte(const Tinte *t):
-    Prodotto(t->GetCodice(),t->GetNome(),t->GetCasaProd(),t->getImg(),t->GetPrezzoInt(),t->GetDiscount()),
+    Prodotto(t->GetCodice(),t->GetNome(),t->GetCasaProd(),t->GetImg(),t->GetPrezzoInt(),t->GetDiscount()),
     ProdChimico(t->ProdChimico::clone()),
     numero(t->getNumero()),
     tt(t->getTt())
@@ -239,7 +261,16 @@ Tinte *Tinte::clone() const
 
 Tinte &Tinte::operator =(const Tinte& t)
 {
-    *this =  new Tinte(t.clone());
+    this->SetCodice(t.GetCodice());
+    this->SetNome(t.GetNome());
+    this->SetCasaProd(t.GetCasaProd());
+    this->SetPrezzo(t.GetPrezzoInt());
+    this->SetDiscount(t.GetDiscount());
+    this->SetImg64(t.GetImg());
+    this->SetQuantita(t.GetQuantita());
+    this->SetTossico(t.GetTossico());
+    this->setNumero(t.getNumero());
+    this->setTt(t.getTt());
     return *this;
 }
 
@@ -251,7 +282,7 @@ ShamColor::ShamColor(string c, string n, string cP, string img, float p, int dis
     Shampoo(c,n,cP,img,p,dis,q,tx,cap,s) {}
 
 ShamColor::ShamColor(const ShamColor *sC):
-    Prodotto(sC->GetCodice(),sC->GetNome(),sC->GetCasaProd(),sC->getImg(),sC->GetPrezzoInt(),sC->GetDiscount()),
+    Prodotto(sC->GetCodice(),sC->GetNome(),sC->GetCasaProd(),sC->GetImg(),sC->GetPrezzoInt(),sC->GetDiscount()),
     ProdChimico(sC->ProdChimico::clone()),
     Tinte(sC->Tinte::clone()),
     Shampoo(sC->Shampoo::clone())
@@ -265,6 +296,17 @@ ShamColor *ShamColor::clone() const
 }
 ShamColor &ShamColor::operator =(const ShamColor& sC)
 {
-    *this =  new ShamColor(sC.clone());
+    this->SetCodice(sC.GetCodice());
+    this->SetNome(sC.GetNome());
+    this->SetCasaProd(sC.GetCasaProd());
+    this->SetPrezzo(sC.GetPrezzoInt());
+    this->SetDiscount(sC.GetDiscount());
+    this->SetImg64(sC.GetImg());
+    this->SetQuantita(sC.GetQuantita());
+    this->SetTossico(sC.GetTossico());
+    this->setTipoCapelli(sC.getTC());
+    this->setTipoShampoo(sC.getTS());
+    this->setNumero(sC.getNumero());
+    this->setTt(sC.getTt());
     return *this;
 }
