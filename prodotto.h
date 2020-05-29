@@ -21,7 +21,7 @@ public:
     float GetPrezzoInt() const;
     int GetDiscount() const;
     std::string GetCasaProd() const;
-    std::string getImg() const;
+    std::string GetImg() const;
 
     void SetImg64(std::string img);
     void SetCodice(std::string newcodice);
@@ -56,6 +56,7 @@ public:
 
     //overload
     virtual ProdChimico& operator=(const ProdChimico& pC);
+    virtual ProdChimico* operator*();
 };
 
 class Shampoo : virtual public ProdChimico
