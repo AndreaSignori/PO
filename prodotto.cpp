@@ -212,6 +212,10 @@ Shampoo &Shampoo::operator =(const Shampoo &s)
     this->setTipoShampoo(s.getTS());
     return *this;
 }
+Shampoo* Shampoo::operator*()
+{
+    return this;
+}
 
 //tinte
 std::string Tinte::getNumero() const
@@ -273,7 +277,10 @@ Tinte &Tinte::operator =(const Tinte& t)
     this->setTt(t.getTt());
     return *this;
 }
-
+Tinte* Tinte::operator*()
+{
+    return this;
+}
 //shamColor
 ShamColor::ShamColor(string c, string n, string cP, string img, float p, int dis, int q, bool tx, string num, Tinte::TipoTinta t, Shampoo::TipoCapelli cap, Shampoo::TipoShampoo s):
     Prodotto(c,n,cP,img,p,dis),
@@ -309,4 +316,8 @@ ShamColor &ShamColor::operator =(const ShamColor& sC)
     this->setNumero(sC.getNumero());
     this->setTt(sC.getTt());
     return *this;
+}
+ShamColor* ShamColor::operator*()
+{
+    return this;
 }

@@ -93,6 +93,7 @@ public:
 
     //overload
     virtual Shampoo& operator =(const Shampoo& s);
+    virtual Shampoo* operator*();
 };
 
 class Tinte : virtual public ProdChimico
@@ -118,6 +119,7 @@ public:
 
     //overload
     virtual Tinte& operator =(const Tinte& t);
+    virtual Tinte* operator*();
 };
 
 class ShamColor : public Tinte, public Shampoo
@@ -133,6 +135,7 @@ public:
 
     //overload
     virtual ShamColor& operator =(const ShamColor& sC);
+    virtual ShamColor* operator*();
 };
 #endif // PRODOTTO_H
 
