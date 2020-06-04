@@ -1,12 +1,17 @@
-#include "mainwindow.h"
-#include <QApplication>
-#include "testwindow.h"
-int main(int argc, char *argv[])
+#include <QCoreApplication>
+#include <iostream>
+#include <stdlib.h>
+#include <prodotto.h>
+#include <typeinfo>
+
+using namespace std;
+
+int main()
 {
-    QApplication a(argc, argv);
-    Windows w;
-    w.show();
+    return 0;
+    /*
+    QCoreApplication a(argc, argv);
 
     return a.exec();
+    */
 }
-

@@ -89,7 +89,6 @@ public:
     void setTipoCapelli(const TipoCapelli& type);
     void setTipoShampoo(const TipoShampoo& type);
 
-    //clone
     virtual Shampoo* clone() const;
 
     //overload
@@ -116,7 +115,6 @@ public:
     TipoTinta getTt() const;
     void setTt(const TipoTinta &value);
 
-    //clone
     virtual Tinte* clone() const;
 
     //overload
@@ -133,7 +131,6 @@ public:
     ShamColor(const ShamColor* sC);
     ~ShamColor() {}
 
-    //clone
     virtual ShamColor* clone() const;
 
     //overload

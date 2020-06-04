@@ -11,7 +11,7 @@ public:
 private:
     class node {
         /*
-         * tutto è private e ci sono due classi friend
+         * tutto Ã¨ private e ci sono due classi friend
          * per vincolare node a essere usato solo in Container<T>
         */
 
@@ -204,14 +204,3 @@ public:
 };
 
 #endif // CONTAINER_H
-
-
-
-
-
-
-
-
-
-
-
