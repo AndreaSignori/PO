@@ -1,14 +1,16 @@
 #include "mainwindow.h"
-#include "ui_mainwindow.h"
 
-MainWindow::MainWindow(QWidget *parent) :
-    QMainWindow(parent),
-    ui(new Ui::MainWindow)
+MainWindow::MainWindow(QWidget* parent): QDialog(parent), c(new Container<Prodotto>())
 {
-    ui->setupUi(this);
-}
+    setWindowTitle("Prodotti Deluxe Parrucchieri");
+    //QHBoxLayout *body = new QHBoxLayout(this); // layout
+    resize(600, 500);
 
-MainWindow::~MainWindow()
-{
-    delete ui;
+
+    //QVBoxLayout *left = new QVBoxLayout;
+    //QHBoxLayout *topBtns = new QHBoxLayout;
+    //QHBoxLayout *bottomBtns = new QHBoxLayout;
+
+    varList = new ListWidget(c);
+
 }
