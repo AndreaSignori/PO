@@ -5,9 +5,11 @@
 #include <QDialog>
 #include <QtCore>
 #include <QtWidgets>
-#include <container.h>
-#include <prodotto.h>
-#include <listwidget.h>
+#include "container.h"
+#include "prodotto.h"
+#include "listwidget.h"
+#include "proddetails.h"
+#include "addform.h"
 
 class MainWindow: public QDialog
 {
@@ -16,6 +18,7 @@ class MainWindow: public QDialog
 private:
     Container<Prodotto> *c;
     ListWidget* varList;
+    ProdDetails* varDet;
 public:
     MainWindow(QWidget* parent = nullptr);
 };

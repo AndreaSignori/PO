@@ -31,6 +31,8 @@ public:
     void SetCasaProd(std::string casaprod);
 
     float GetPrezzoEffettivo() const;
+
+    virtual Prodotto* operator*();
 };
 
 class ProdChimico : virtual public Prodotto
@@ -83,11 +85,18 @@ public:
     /*Set e Get*/
     TipoCapelli getTC() const;
     TipoShampoo getTS() const;
+
+    void setTC(int x);
+    void setTS(int x);
+
     const char* getTipoCapelli() const;
     const char* getTipoShampoo() const;
 
     void setTipoCapelli(const TipoCapelli& type);
     void setTipoShampoo(const TipoShampoo& type);
+
+    const char* getArrayTC() const;
+    const char* getArrayTS() const;
 
     virtual Shampoo* clone() const;
 
@@ -105,19 +114,25 @@ private:
     std::string numero;
     static char const tipoT[2][6];
     TipoTinta tt;
+
 public:
-    Tinte(std::string c = "", std::string n = "", std::string cP = "",std::string img = "", float p = 0.0 , int dis = 0, int q = 0, bool tx = false, std::string num = "", TipoTinta t = TipoTinta::CREMA );
+
+    Tinte(std::string c = "", std::string n = "", std::string cP = "",std::string img = "", float p = 0.0 , int dis = 0, int q = 0, bool tx = false, std::string num = "", TipoTinta t = TipoTinta::OLIO );
     Tinte(const Tinte* t);
     ~Tinte() {}
 
     std::string getNumero() const;
-    void setNumero(const std::string &value);
     TipoTinta getTt() const;
+    void setTt(int x);
+
+    void setNumero(const std::string &value);
     void setTt(const TipoTinta &value);
 
-    virtual Tinte* clone() const;
+    const char* getTipoTinta() const;
+    const char* getArrayTt() const;
 
     //overload
+    virtual Tinte* clone() const;
     virtual Tinte& operator =(const Tinte& t);
     virtual Tinte* operator*();
 };

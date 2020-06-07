@@ -1,11 +1,13 @@
 #ifndef ADDFORM_H
 #define ADDFORM_H
 
+#include <QtWidgets>
+#include <QDialog>
 
-class AddForm
+class AddForm : public QDialog
 {
 public:
-    AddForm();
+    AddForm(QWidget* parent = nullptr);
 };
 
 #endif // ADDFORM_H
