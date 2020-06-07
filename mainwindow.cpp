@@ -56,6 +56,7 @@ MainWindow::MainWindow(QWidget* parent): QDialog(parent), c(new Container<Prodot
     vLay1->addStretch(1);
     QPushButton* modifiche = new QPushButton;
     modifiche->setText("Apply");
+
     QPushButton* reset = new QPushButton;
     reset->setText("Reset");
     connect(modifiche, &QPushButton::clicked, varDet, &ProdDetails::apply);

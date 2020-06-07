@@ -234,6 +234,7 @@ void ProdDetails::apply()
 
 }
 
+
  void ProdDetails::reset()
 {
     cod->clear();
@@ -268,3 +269,4 @@ void ProdDetails::apply()
 
 
 }
+
