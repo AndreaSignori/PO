@@ -85,6 +85,11 @@ void Prodotto::SetCasaProd(string newcasaprod) {
         casaProd = newcasaprod;
 }
 
+Prodotto *Prodotto::operator*()
+{
+    return this;
+}
+
 //Prodotto Chimico
 ProdChimico::ProdChimico(string c , string n , string cP ,string img, float p , int dis,int q, bool tx):
     Prodotto(c,n,cP,img,p,dis),
@@ -173,6 +178,57 @@ Shampoo::TipoShampoo Shampoo::getTS() const
     return tS;
 }
 
+void Shampoo::setTC(int x)
+{
+    switch (x) {
+    case 0:
+        Shampoo::tC = TipoCapelli::GENERALE;
+        break;
+    case 1:
+        Shampoo::tC = TipoCapelli::RICCI;
+        break;
+    case 2:
+        Shampoo::tC = TipoCapelli::LISCI;
+        break;
+    case 3:
+        Shampoo::tC = TipoCapelli::COLORATI;
+        break;
+    case 4:
+        Shampoo::tC = TipoCapelli::ROVINATI;
+        break;
+    default:
+        cout<<"errore di index? Capelli"<<endl;
+        break;
+    }
+}
+
+void Shampoo::setTS(int x)
+{
+    switch (x) {
+    case 0:
+        Shampoo::tS = TipoShampoo::GENERICO;
+        break;
+    case 1:
+        Shampoo::tS = TipoShampoo::VOLUMIZZANTE;
+        break;
+    case 2:
+        Shampoo::tS = TipoShampoo::ANTICADUTA;
+        break;
+    case 3:
+        Shampoo::tS = TipoShampoo::SEBOREGOLATORE;
+        break;
+    case 4:
+        Shampoo::tS = TipoShampoo::ANTIFORFORA;
+        break;
+    case 5:
+        Shampoo::tS = TipoShampoo::COLORANTE;
+        break;
+    default:
+        cout<<"errore di index? Shampoo"<<endl;
+        break;
+    }
+}
+
 const char* Shampoo::getTipoCapelli() const
 {
     return Shampoo::tipocapelli_nome[tC];
@@ -191,6 +247,14 @@ void Shampoo::setTipoCapelli(const Shampoo::TipoCapelli &type)
 void Shampoo::setTipoShampoo(const Shampoo::TipoShampoo &type)
 {
     Shampoo::tS = type;
+}
+
+const char* Shampoo::getArrayTC() const{
+    return tipocapelli_nome[0];
+}
+
+const char* Shampoo::getArrayTS() const{
+    return tiposhampoo_nome[0];
 }
 
 Shampoo *Shampoo::clone() const
@@ -219,25 +283,6 @@ Shampoo *Shampoo::operator*()
 }
 
 //tinte
-std::string Tinte::getNumero() const
-{
-    return numero;
-}
-
-void Tinte::setNumero(const std::string &value)
-{
-    numero = value;
-}
-
-Tinte::TipoTinta Tinte::getTt() const
-{
-    return tt;
-}
-
-void Tinte::setTt(const TipoTinta &value)
-{
-    tt = value;
-}
 
 Tinte::Tinte(string c, string n, string cP, string img, float p, int dis, int q, bool tx, string num, Tinte::TipoTinta t):
     Prodotto(c,n,cP,img,p,dis),
@@ -257,6 +302,47 @@ Tinte::Tinte(const Tinte *t):
     tt(t->getTt())
 {
 
+}
+
+std::string Tinte::getNumero() const
+{
+    return numero;
+}
+
+void Tinte::setNumero(const std::string &value)
+{
+    numero = value;
+}
+
+Tinte::TipoTinta Tinte::getTt() const
+{
+    return tt;
+}
+
+void Tinte::setTt(int x)
+{
+    switch (x) {
+    case 0:
+        Tinte::tt = TipoTinta::OLIO;
+        break;
+    case 1:
+        Tinte::tt = TipoTinta::CREMA;
+        break;
+    default:
+        cout<<"errore di index? Tinta"<<endl;
+        break;
+    }
+}
+
+void Tinte::setTt(const TipoTinta &value)
+{
+    tt = value;
+}
+const char* Tinte::getTipoTinta() const{
+    return Tinte::tipoT[tt];
+}
+const char* Tinte::getArrayTt() const{
+    return tipoT[0];
 }
 
 Tinte *Tinte::clone() const

@@ -18,7 +18,9 @@ SOURCES += main.cpp \
     prodotto.cpp \
     myexception.cpp \
     mainwindow.cpp \
-    listwidget.cpp
+    listwidget.cpp \
+    proddetails.cpp \
+    addform.cpp
 
 HEADERS += \
     prodotto.h \
@@ -26,4 +28,6 @@ HEADERS += \
     container.h \
     mainwindow.h \
     listwidget.h \
-    validator.h
+    validator.h \
+    proddetails.h \
+    addform.h
