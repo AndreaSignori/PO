@@ -24,6 +24,9 @@ void ListWidget::addEntry(const Container<Prodotto>::iterator &d)
     ln->setText(QString::fromStdString(d->GetNome()));
     lc->setText(QString::fromStdString("     " + d->GetCodice()));
 
+    ln->setAlignment(Qt::AlignCenter);
+    lc->setAlignment(Qt::AlignCenter);
+
     lay1->addWidget(ln);
     lay1->addWidget(lc);
 

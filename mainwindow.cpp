@@ -52,8 +52,12 @@ MainWindow::MainWindow(QWidget* parent): QDialog(parent), c(new Container<Prodot
     QVBoxLayout* vLay1 = new QVBoxLayout();//layout per form e bottone "applica modifiche"
     QHBoxLayout* hLay1 = new QHBoxLayout();//layout per bottoni
 
-    vLay1->addLayout(varDet);
+    QLabel* title = new QLabel("Dettagli Prodotto:");
+    vLay1->addWidget(title);
+    title->setAlignment(Qt::AlignCenter);
     vLay1->addStretch(1);
+    vLay1->addLayout(varDet);
+    vLay1->addStretch(8);
     QPushButton* modifiche = new QPushButton;
     modifiche->setText("Apply");
 
