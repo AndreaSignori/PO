@@ -7,14 +7,18 @@ ProdDetails::ProdDetails(QWidget *parent): QFormLayout(parent),prod(nullptr), na
     addRow(tr("&Codice: "),cod);
     addRow(tr("&Nome: "),name);
     addRow(tr("&Casa Produttrice: "),casaProd);
+
     prezzo->setMaximum(900000);
     prezzo->setMinimum(0);
     prezzo->setDecimals(2);
     prezzo->setSuffix("€");
+
     addRow(tr("&Prezzo: "),prezzo);
+
     sconto->setMaximum(100);
     sconto->setMinimum(0);
     sconto->setSuffix("%");
+
     addRow(tr("&Sconto: "),sconto);
 }
 
