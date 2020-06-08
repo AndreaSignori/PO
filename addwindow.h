@@ -1,5 +1,5 @@
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
+#ifndef ADDFORM_H
+#define ADDFORM_H
 
 #include <QObject>
 #include <QDialog>
@@ -11,16 +11,15 @@
 #include "proddetails.h"
 #include "addwindow.h"
 
-class MainWindow: public QDialog
+class AddWindow : public QDialog
 {
     Q_OBJECT
-
 private:
-    Container<Prodotto> *c;
+    Prodotto* c;
     ListWidget* varList;
     ProdDetails* varDet;
 public:
-    MainWindow(QWidget* parent = nullptr);
+    AddWindow(QWidget* parent = nullptr);
 };
 
-#endif // MAINWINDOW_H
+#endif // ADDFORM_H

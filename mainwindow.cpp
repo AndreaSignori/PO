@@ -43,7 +43,7 @@ MainWindow::MainWindow(QWidget* parent): QDialog(parent), c(new Container<Prodot
             varDet->showDet(*static_cast<ListWidgetItem*>(items[0])->getProdotto());
     });
     QPushButton* pb1 = new QPushButton("+");
-    connect(pb1, &QPushButton::clicked, [this] (bool) { AddForm(this).exec(); });
+    connect(pb1, &QPushButton::clicked, [this] (bool) { AddWindow(this).exec(); });
 
     left->addWidget(pb1);
     left->addWidget(varList);
