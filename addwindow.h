@@ -5,6 +5,7 @@
 #include <QDialog>
 #include <QtCore>
 #include <QtWidgets>
+#include <typeinfo>
 #include "container.h"
 #include "prodotto.h"
 #include "proddetails.h"
@@ -15,12 +16,12 @@ class AddWindow : public QDialog
     Q_OBJECT
 
 private:
-    Prodotto* c;
+    Prodotto* slot;
     QLabel* title;
     QComboBox* lista;
     ProdDetails* varDet;
 public:
-    AddWindow(QWidget* parent = nullptr);
+    AddWindow(QWidget* parent = nullptr , Prodotto *c = nullptr);
 
     void ChangeForm();
 };

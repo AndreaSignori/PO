@@ -1,12 +1,13 @@
 #include "addwindow.h"
 
-AddWindow::AddWindow(QWidget *parent): QDialog(parent), lista(new QComboBox), title(new QLabel), varDet(new ProdDetails)
+AddWindow::AddWindow(QWidget *parent, Prodotto *c): QDialog(parent), lista(new QComboBox), title(new QLabel), varDet(new ProdDetails), slot(c)
 {
     QVBoxLayout *body = new QVBoxLayout(this);
     QHBoxLayout *selezione = new QHBoxLayout;
     QHBoxLayout *variabileform = new QHBoxLayout;
+    QHBoxLayout *buttons = new QHBoxLayout;
     setWindowTitle("Inserisci un nuovo prodotto");
-    resize(600, 500);
+    resize(500, 400);
 
     title->setText("Seleziona il tipo di prodotto da inserire:");
     lista->addItem("Prodotto Chimico");
@@ -26,22 +27,32 @@ AddWindow::AddWindow(QWidget *parent): QDialog(parent), lista(new QComboBox), ti
         this->ChangeForm();
     }
     );
-
     variabileform->addLayout(varDet);
-    body->addLayout(variabileform);
 
+    QPushButton* aggiungi = new QPushButton;
+    QPushButton* reset = new QPushButton;
+
+    aggiungi->setText("Apply");
+    reset->setText("Reset");
+
+    connect(aggiungi, &QPushButton::clicked, varDet, &ProdDetails::apply);
+
+    buttons->addWidget(reset);
+    buttons->addWidget(aggiungi);
+
+    body->addLayout(variabileform);
+    body->addLayout(buttons);
 }
 
 void AddWindow::ChangeForm(){
-    Prodotto* newprod;
     varDet->clear();
     if(lista->currentIndex()==0)
-        newprod = new ProdChimico();
+        slot = new ProdChimico();
     else if(lista->currentIndex()==1)
-        newprod = new Shampoo();
+        slot = new Shampoo();
     else if(lista->currentIndex()==2)
-        newprod = new Tinte();
+        slot = new Tinte();
     else if(lista->currentIndex()==3)
-        newprod = new ShamColor();
-    varDet->showDet(*newprod);
+        slot = new ShamColor();
+    varDet->showDet(*slot);
 }
