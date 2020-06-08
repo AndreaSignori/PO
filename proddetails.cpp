@@ -2,8 +2,15 @@
 #include <iostream>
 using namespace std;
 
-ProdDetails::ProdDetails(QWidget *parent): QFormLayout(parent),prod(nullptr), name(new QLineEdit()), cod(new QLineEdit()), casaProd(new QLineEdit()), prezzo(new QDoubleSpinBox()), sconto(new QSpinBox()),quantita(new QSpinBox()),g1(new QGroupBox()),tC(new QComboBox()),tS(new QComboBox()),numT(new QLineEdit()),tT(new QComboBox())
+ProdDetails::ProdDetails(QWidget *parent): QFormLayout(parent),prod(nullptr), name(new QLineEdit()), cod(new QLineEdit()), casaProd(new QLineEdit()), img64(new QLabel()), prezzo(new QDoubleSpinBox()), sconto(new QSpinBox()),quantita(new QSpinBox()),g1(new QGroupBox()),tC(new QComboBox()),tS(new QComboBox()),numT(new QLineEdit()),tT(new QComboBox())
 {
+    img64->setText(tr("nessun file selezionato"));
+    test->addWidget(img64);
+    searchImg = new QPushButton(tr("browse"));
+    searchImg->setEnabled(false);
+    test->addWidget(searchImg);
+    addRow(tr("Immagine: "),test);
+
     addRow(tr("&Codice: "),cod);
     addRow(tr("&Nome: "),name);
     addRow(tr("&Casa Produttrice: "),casaProd);
@@ -31,7 +38,22 @@ void ProdDetails::showDet(Prodotto &prod)
     casaProd->setText(QString::fromStdString(prod.GetCasaProd()));
     prezzo->setValue(prod.GetPrezzoInt());
     sconto->setValue(prod.GetDiscount());
-
+    searchImg->setEnabled(true);
+    //immagine
+    QImage img;
+    img.loadFromData( QByteArray::fromBase64( prod.GetImg().c_str() ) );
+    if(!img.isNull()){
+        img64->setPixmap(QPixmap::fromImage(img).scaled(230, 230, Qt::KeepAspectRatio, Qt::SmoothTransformation));
+    }
+    /*
+    connect(searchImg,&QPushButton::clicked,[this](bool){
+        QString path = QFileDialog::getOpenFileName(this->parentWidget(), "Select Image", "/home", "Image (*.jpeg *.jpg *.png)");
+        if ( path.endsWith("jpg") || path.endsWith("png") || path.endsWith("jpeg") ) {
+            this->path = path;
+            this->prod->SetImg64(this->path.toStdString());
+        }
+    });
+    */
     if(typeid(prod).name()==typeid(ProdChimico).name()){
         //faccio dynamic cast per avere i metodi del tipo dinamico
         auto temp = dynamic_cast<ProdChimico*>(*prod);
@@ -193,6 +215,7 @@ void ProdDetails::clear()
     casaProd->clear();
     prezzo->setValue(0.0);
     sconto->setValue(0);
+    img64->setText("vuoto");
 
     //a causa di un remove forzato di ogni oggetto sulla console
     //verrà visualizzato un warning che l'elemento non esiste

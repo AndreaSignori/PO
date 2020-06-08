@@ -10,13 +10,16 @@ class ProdDetails : public QFormLayout
 private:
     Prodotto* prod;
 
-    QLineEdit* name, *cod, *casaProd, *img64;
+    QLineEdit* name, *cod, *casaProd;
+    QLabel* img64;
     QDoubleSpinBox* prezzo;
     QSpinBox* sconto;
     QSpinBox* quantita; QRadioButton *si, *no;QGroupBox* g1;
     QComboBox* tC, *tS;
     QLineEdit* numT;QComboBox* tT;
-
+    QHBoxLayout* test = new QHBoxLayout();
+    QString path;
+    QPushButton* searchImg;
 public:
 
     ProdDetails(QWidget* parent = nullptr);
