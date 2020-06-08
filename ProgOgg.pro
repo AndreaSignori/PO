@@ -20,8 +20,7 @@ SOURCES += main.cpp \
     mainwindow.cpp \
     listwidget.cpp \
     proddetails.cpp \
-    addwindow.cpp \
-    addform.cpp
+    addwindow.cpp
 
 HEADERS += \
     prodotto.h \
@@ -31,5 +30,4 @@ HEADERS += \
     listwidget.h \
     validator.h \
     proddetails.h \
-    addwindow.h \
-    addform.h
+    addwindow.h
