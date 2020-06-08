@@ -37,6 +37,7 @@ void ProdDetails::showDet(Prodotto &prod)
         auto temp = dynamic_cast<ProdChimico*>(*prod);
 
         //inserisco i parametri delle determinate classi del tipo dinamico
+        quantita = new QSpinBox();
         quantita->setMaximum(5000);
         quantita->setMinimum(0);
         quantita->setSuffix(" mL");
@@ -190,8 +191,8 @@ void ProdDetails::clear()
     cod->clear();
     name->clear();
     casaProd->clear();
-    prezzo->clear();
-    sconto->clear();
+    prezzo->setValue(0.0);
+    sconto->setValue(0);
 
     //a causa di un remove forzato di ogni oggetto sulla console
     //verrà visualizzato un warning che l'elemento non esiste
