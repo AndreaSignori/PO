@@ -7,17 +7,15 @@
 #include <QtWidgets>
 #include "container.h"
 #include "prodotto.h"
-#include "listwidget.h"
 #include "proddetails.h"
-#include "addwindow.h"
+#include "listwidget.h"
 
 class AddWindow : public QDialog
 {
     Q_OBJECT
 private:
     Prodotto* c;
-    ListWidget* varList;
-    ProdDetails* varDet;
+    QComboBox lista;
 public:
     AddWindow(QWidget* parent = nullptr);
 };
