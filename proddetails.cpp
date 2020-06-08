@@ -2,14 +2,20 @@
 #include <iostream>
 using namespace std;
 
-ProdDetails::ProdDetails(QWidget *parent): QFormLayout(parent),prod(nullptr), name(new QLineEdit()), cod(new QLineEdit()), casaProd(new QLineEdit()), prezzo(new QLineEdit()), sconto(new QLineEdit()),quantita(new QLineEdit()),g1(new QGroupBox()),tC(new QComboBox()),tS(new QComboBox()),numT(new QLineEdit()),tT(new QComboBox())
+ProdDetails::ProdDetails(QWidget *parent): QFormLayout(parent),prod(nullptr), name(new QLineEdit()), cod(new QLineEdit()), casaProd(new QLineEdit()), prezzo(new QDoubleSpinBox()), sconto(new QSpinBox()),quantita(new QSpinBox()),g1(new QGroupBox()),tC(new QComboBox()),tS(new QComboBox()),numT(new QLineEdit()),tT(new QComboBox())
 {
     addRow(tr("&Codice: "),cod);
     addRow(tr("&Nome: "),name);
     addRow(tr("&Casa Produttrice: "),casaProd);
+    prezzo->setMaximum(900000);
+    prezzo->setMinimum(0);
+    prezzo->setDecimals(2);
+    prezzo->setSuffix("€");
     addRow(tr("&Prezzo: "),prezzo);
+    sconto->setMaximum(100);
+    sconto->setMinimum(0);
+    sconto->setSuffix("%");
     addRow(tr("&Sconto: "),sconto);
-
 }
 
 void ProdDetails::showDet(Prodotto &prod)
@@ -19,21 +25,20 @@ void ProdDetails::showDet(Prodotto &prod)
     cod->setText(QString::fromStdString(prod.GetCodice()));
     name->setText(QString::fromStdString(prod.GetNome()));
     casaProd->setText(QString::fromStdString(prod.GetCasaProd()));
-    prezzo->setText(QString::number(prod.GetPrezzoInt()));
-    sconto->setText(QString::number(prod.GetDiscount()));
+    prezzo->setValue(prod.GetPrezzoInt());
+    sconto->setValue(prod.GetDiscount());
 
     if(typeid(prod).name()==typeid(ProdChimico).name()){
         //faccio dynamic cast per avere i metodi del tipo dinamico
         auto temp = dynamic_cast<ProdChimico*>(*prod);
 
         //inserisco i parametri delle determinate classi del tipo dinamico
-
-        quantita = new QLineEdit();
-        quantita->setObjectName("quantita");
-        quantita->setText(QString::number(temp->GetQuantita()));
+        quantita->setMaximum(5000);
+        quantita->setMinimum(0);
+        quantita->setSuffix(" mL");
+        quantita->setValue(temp->GetQuantita());
 
         g1 = new QGroupBox();
-        g1->setObjectName("g1");
         QHBoxLayout* hg1 = new QHBoxLayout();
         si = new QRadioButton(tr("&si"));
         no = new QRadioButton(tr("&no"));
@@ -75,7 +80,7 @@ void ProdDetails::showDet(Prodotto &prod)
         //setto il numero Tinta
         numT->setText(QString::fromStdString(temp->getNumero()));
 
-        addRow(tr("&Nummero Tinta: "),numT);
+        addRow(tr("&Numero Tinta: "),numT);
         addRow(tr("&Tipo Tinta: "),tT);
     }
     if(typeid(prod).name()==typeid(Shampoo).name()){
@@ -187,18 +192,38 @@ void ProdDetails::clear()
     //a causa di un remove forzato di ogni oggetto sulla console
     //verrà visualizzato un warning che l'elemento non esiste
     //e che quindi non può essere rimosso
-    removeRow(g1);
+    if(this->prod){
+        if(typeid(*prod).name() == typeid(ProdChimico).name()){
+            removeRow(g1);
 
-    removeRow(quantita);
+            removeRow(quantita);
+        }
 
-    removeRow(tT);
+        if(typeid(*prod).name() == typeid(Tinte).name()){
+            removeRow(tT);
 
-    removeRow(numT);
+            removeRow(numT);
+        }
 
-    removeRow(tC);
+        if(typeid(*prod).name() == typeid(Shampoo).name()){
+            removeRow(tC);
 
-    removeRow(tS);
+            removeRow(tS);
 
+        }
+
+        if(typeid(*prod).name() == typeid(ShamColor).name()){
+            removeRow(tT);
+
+            removeRow(numT);
+
+            removeRow(tC);
+
+            removeRow(tS);
+
+        }
+    }
+    this->prod = nullptr;
 }
 
 void ProdDetails::apply()
@@ -206,12 +231,12 @@ void ProdDetails::apply()
     this->prod->SetCodice(cod->text().toStdString());
     this->prod->SetNome(name->text().toStdString());
     this->prod->SetCasaProd(casaProd->text().toStdString());
-    this->prod->SetPrezzo(prezzo->text().toFloat());
-    this->prod->SetDiscount(sconto->text().toInt());
+    this->prod->SetPrezzo(prezzo->value());
+    this->prod->SetDiscount(sconto->value());
 
     if(typeid(*(this->prod)).name()==typeid(ProdChimico).name()){
         auto temp = dynamic_cast<ProdChimico*>(this->prod);
-        temp->SetQuantita(quantita->text().toInt());
+        temp->SetQuantita(quantita->value());
         temp->SetTossico((si->isChecked())?true:false);
     }
     if(typeid(*(this->prod)).name()==typeid(Tinte).name()){
@@ -240,11 +265,11 @@ void ProdDetails::apply()
     cod->clear();
     name->clear();
     casaProd->clear();
-    prezzo->clear();
-    sconto->clear();
+    prezzo->setValue(0.0);
+    sconto->setValue(0);
 
     if(typeid(*(this->prod)).name() == typeid(ProdChimico).name()){
-        quantita->clear();
+        quantita->setValue(0);
         si->setChecked(false);
         no->setChecked(true);
     }

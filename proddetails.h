@@ -10,8 +10,10 @@ class ProdDetails : public QFormLayout
 private:
     Prodotto* prod;
 
-    QLineEdit* name, *cod, *casaProd, *prezzo, *sconto, *img64;
-    QLineEdit* quantita; QRadioButton *si, *no;QGroupBox* g1;
+    QLineEdit* name, *cod, *casaProd, *img64;
+    QDoubleSpinBox* prezzo;
+    QSpinBox* sconto;
+    QSpinBox* quantita; QRadioButton *si, *no;QGroupBox* g1;
     QComboBox* tC, *tS;
     QLineEdit* numT;QComboBox* tT;
 
