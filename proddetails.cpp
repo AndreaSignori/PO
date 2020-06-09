@@ -8,6 +8,16 @@ ProdDetails::ProdDetails(QWidget *parent): QFormLayout(parent),prod(nullptr), na
     test->addWidget(img64);
     searchImg = new QPushButton(tr("browse"));
     searchImg->setEnabled(false);
+    //bottone inserimento immagine
+    connect(searchImg,&QPushButton::clicked,[this](){
+        QString path = QFileDialog::getOpenFileName(this->parentWidget(), "Select Image", "/home", "Image (*.jpeg *.jpg *.png)");
+        if ( path.endsWith("jpg") || path.endsWith("png") || path.endsWith("jpeg") ) {
+            this->path = path;
+            QPixmap img(this->path);
+            img64->setPixmap(img.scaled(80,80));
+        }
+    });
+
     test->addWidget(searchImg);
     addRow(tr("Immagine: "),test);
 
@@ -39,21 +49,10 @@ void ProdDetails::showDet(Prodotto &prod)
     prezzo->setValue(prod.GetPrezzoInt());
     sconto->setValue(prod.GetDiscount());
     searchImg->setEnabled(true);
-    //immagine
-    QImage img;
-    img.loadFromData( QByteArray::fromBase64( prod.GetImg().c_str() ) );
-    if(!img.isNull()){
-        img64->setPixmap(QPixmap::fromImage(img).scaled(230, 230, Qt::KeepAspectRatio, Qt::SmoothTransformation));
-    }
-    /*
-    connect(searchImg,&QPushButton::clicked,[this](bool){
-        QString path = QFileDialog::getOpenFileName(this->parentWidget(), "Select Image", "/home", "Image (*.jpeg *.jpg *.png)");
-        if ( path.endsWith("jpg") || path.endsWith("png") || path.endsWith("jpeg") ) {
-            this->path = path;
-            this->prod->SetImg64(this->path.toStdString());
-        }
-    });
-    */
+    path = QString::fromStdString(prod.GetImg());
+    if(!QPixmap(path).isNull())
+    img64->setPixmap(QPixmap(path).scaled(80,80));
+
     if(typeid(prod).name()==typeid(ProdChimico).name()){
         //faccio dynamic cast per avere i metodi del tipo dinamico
         auto temp = dynamic_cast<ProdChimico*>(*prod);
@@ -216,7 +215,8 @@ void ProdDetails::clear()
     prezzo->setValue(0.0);
     sconto->setValue(0);
     img64->setText("vuoto");
-
+    path.clear();
+    searchImg->setEnabled(false);
     //a causa di un remove forzato di ogni oggetto sulla console
     //verrà visualizzato un warning che l'elemento non esiste
     //e che quindi non può essere rimosso
@@ -261,6 +261,7 @@ void ProdDetails::apply()
     this->prod->SetCasaProd(casaProd->text().toStdString());
     this->prod->SetPrezzo(prezzo->value());
     this->prod->SetDiscount(sconto->value());
+    this->prod->SetImg64(this->path.toStdString());
 
     if(typeid(*(this->prod)).name()==typeid(ProdChimico).name()){
         auto temp = dynamic_cast<ProdChimico*>(this->prod);
@@ -295,6 +296,9 @@ void ProdDetails::apply()
     casaProd->clear();
     prezzo->setValue(0.0);
     sconto->setValue(0);
+    path.clear();
+    img64->clear();
+    img64->setText("Vuoto");
 
     if(typeid(*(this->prod)).name() == typeid(ProdChimico).name()){
         quantita->setValue(0);
