@@ -30,27 +30,42 @@ MainWindow::MainWindow(QWidget* parent): QDialog(parent), c(new Container<Prodot
     c->push_front(u);
     varList = new ListWidget(c);
 
+    QPushButton* remove = new QPushButton("remove");
     //popolo la list widget
     for (auto it = c->begin(); it; ++it)
         varList->addEntry(it);
     //fine test
 
-    connect(varList, &ListWidget::itemSelectionChanged, [this] () {
+    connect(varList, &ListWidget::itemSelectionChanged, [this,remove] () {
         auto items = varList->selectedItems();
         if (items.length() != 1)
             varDet->clear();
         else
             varDet->showDet(*static_cast<ListWidgetItem*>(items[0])->getProdotto());
+
+        if(varList->selectedItems().length() == 0 || varList->selectedItems().length()>1){
+            remove->setEnabled(false);
+        }else{
+            remove->setEnabled(true);
+        }
     });
-    QPushButton* pb1 = new QPushButton("+");
-    connect(pb1, &QPushButton::clicked, [this] (bool) {
+    QPushButton* add = new QPushButton("+");
+    connect(add, &QPushButton::clicked, [this] (bool) {
         Prodotto* newelement;
         AddWindow(this,newelement).exec();
         c->push_front(newelement);
     });
 
-    left->addWidget(pb1);
+    left->addWidget(add);
     left->addWidget(varList);
+
+    connect(remove, &QPushButton::clicked, [this] (bool) {
+        //c->remove(static_cast<ListWidgetItem*>(varList->currentItem())->getProdotto());
+        varList->rmSelected(true);
+
+    });
+
+    left->addWidget(remove);
     body->addLayout(left,33);
 
     QVBoxLayout* vLay1 = new QVBoxLayout();//layout per form e bottone "applica modifiche"
