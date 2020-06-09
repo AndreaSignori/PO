@@ -49,20 +49,16 @@ MainWindow::MainWindow(QWidget* parent): QDialog(parent), c(new Container<Prodot
             remove->setEnabled(true);
         }
     });
-    QPushButton* add = new QPushButton("+");
+    QPushButton* add = new QPushButton("Nuovo Prodotto");
     connect(add, &QPushButton::clicked, [this] (bool) {
-        Prodotto* newelement;
-        AddWindow(this,newelement).exec();
-        c->push_front(newelement);
+        AddWindow(this,varList,c).exec();
     });
 
     left->addWidget(add);
     left->addWidget(varList);
 
     connect(remove, &QPushButton::clicked, [this] (bool) {
-        //c->remove(static_cast<ListWidgetItem*>(varList->currentItem())->getProdotto());
         varList->rmSelected(true);
-
     });
 
     left->addWidget(remove);

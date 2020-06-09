@@ -16,12 +16,14 @@ class AddWindow : public QDialog
     Q_OBJECT
 
 private:
-    Prodotto* slot;
-    QLabel* title;
-    QComboBox* lista;
-    ProdDetails* varDet;
+    ListWidget* l;
+    Container<Prodotto>* pr;
+    QComboBox* menu;
+    Prodotto* p;
+    ProdDetails* pd;
+    bool check = false;
 public:
-    AddWindow(QWidget* parent = nullptr , Prodotto *c = nullptr);
+    AddWindow(QWidget* parent = nullptr ,ListWidget* l = nullptr,Container<Prodotto>* pr = nullptr);
 
     void ChangeForm();
 };

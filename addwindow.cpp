@@ -1,58 +1,62 @@
 #include "addwindow.h"
 
-AddWindow::AddWindow(QWidget *parent, Prodotto *c): QDialog(parent), lista(new QComboBox), title(new QLabel), varDet(new ProdDetails), slot(c)
+AddWindow::AddWindow(QWidget *parent, ListWidget* l,Container<Prodotto>* pr): QDialog(parent), l(l), pr(pr), menu(new QComboBox()), p(nullptr), pd(new ProdDetails())
 {
     QVBoxLayout *body = new QVBoxLayout(this);
-    QHBoxLayout *selezione = new QHBoxLayout;
-    QHBoxLayout *variabileform = new QHBoxLayout;
-    QHBoxLayout *buttons = new QHBoxLayout;
+    QHBoxLayout *selezione = new QHBoxLayout();
     setWindowTitle("Inserisci un nuovo prodotto");
     resize(500, 400);
 
-    title->setText("Seleziona il tipo di prodotto da inserire:");
-    lista->addItem("Prodotto Chimico");
-    lista->addItem("Shampoo");
-    lista->addItem("Tinta");
-    lista->addItem("Shampoo Colorante");
+    menu->addItem("Prodotto Chimico");
+    menu->addItem("Shampoo");
+    menu->addItem("Tinta");
+    menu->addItem("Shampoo Colorante");
 
-    selezione->addWidget(title);
-    selezione->addWidget(lista);
+    connect(menu, &QComboBox::currentTextChanged,[this] () {
+        this->ChangeForm();
+        });
 
+    selezione->addWidget(new QLabel("Seleziona il tipo di prodotto da inserire:"));
+    selezione->addWidget(menu);
 
     body->addLayout(selezione);
+    body->addLayout(pd);
 
-    connect(
-        lista, &QComboBox::currentTextChanged,
-                [this] () {
-        this->ChangeForm();
-    }
-    );
-    variabileform->addLayout(varDet);
+    QDialogButtonBox* conferma = new QDialogButtonBox;
+    conferma->setOrientation(Qt::Horizontal);
+    conferma->setStandardButtons(QDialogButtonBox::Cancel|QDialogButtonBox::Ok);
 
-    QPushButton* aggiungi = new QPushButton;
-    QPushButton* reset = new QPushButton;
+    connect(conferma, &QDialogButtonBox::rejected, this, &AddWindow::close);
+    connect(conferma, &QDialogButtonBox::accepted, [this](){
+        if(this->p->GetCodice()!="")
+        {
+            check = true;
+        }
+        if(check){
+            this->pd->apply();
+            this->pr->push_back(this->p);
+            this->l->addEntry(this->pr->end());
+            this->close();
+        }else{
+            QMessageBox::critical(this->parentWidget(),tr("Attenzione"),tr("Non è stato inserito il codice del prodotto, si prega di rimediare"));
+        }
 
-    aggiungi->setText("Apply");
-    reset->setText("Reset");
+    });
 
-    connect(aggiungi, &QPushButton::clicked, varDet, &ProdDetails::apply);
+    body->addWidget(conferma);
 
-    buttons->addWidget(reset);
-    buttons->addWidget(aggiungi);
-
-    body->addLayout(variabileform);
-    body->addLayout(buttons);
+    ChangeForm();
 }
 
 void AddWindow::ChangeForm(){
-    varDet->clear();
-    if(lista->currentIndex()==0)
-        slot = new ProdChimico();
-    else if(lista->currentIndex()==1)
-        slot = new Shampoo();
-    else if(lista->currentIndex()==2)
-        slot = new Tinte();
-    else if(lista->currentIndex()==3)
-        slot = new ShamColor();
-    varDet->showDet(*slot);
+    pd->clear();
+    if(menu->currentIndex()==0)
+        p = new ProdChimico();
+    else if(menu->currentIndex()==1)
+        p = new Shampoo();
+    else if(menu->currentIndex()==2)
+        p = new Tinte();
+    else if(menu->currentIndex()==3)
+        p = new ShamColor();
+    pd->showDet(*p);
 }

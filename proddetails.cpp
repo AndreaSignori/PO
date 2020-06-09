@@ -256,35 +256,46 @@ void ProdDetails::clear()
 
 void ProdDetails::apply()
 {
-    this->prod->SetCodice(cod->text().toStdString());
-    this->prod->SetNome(name->text().toStdString());
-    this->prod->SetCasaProd(casaProd->text().toStdString());
-    this->prod->SetPrezzo(prezzo->value());
-    this->prod->SetDiscount(sconto->value());
-    this->prod->SetImg64(this->path.toStdString());
+    if(!this->prod){
+        //throw MyException("Hai tentato modifiche ad un Prodotto inesistente!!!!");
+        QMessageBox::critical(this->parentWidget(),tr("Errore"),tr("Hai tentato modifiche ad un Prodotto inesistente!!!!"));
+    }else{
+        if(!this->cod->text().isEmpty()){
+            this->prod->SetCodice(cod->text().toStdString());
+            this->prod->SetNome(name->text().toStdString());
+            this->prod->SetCasaProd(casaProd->text().toStdString());
+            this->prod->SetPrezzo(prezzo->value());
+            this->prod->SetDiscount(sconto->value());
+            this->prod->SetImg64(this->path.toStdString());
 
-    if(typeid(*(this->prod)).name()==typeid(ProdChimico).name()){
-        auto temp = dynamic_cast<ProdChimico*>(this->prod);
-        temp->SetQuantita(quantita->value());
-        temp->SetTossico((si->isChecked())?true:false);
-    }
-    if(typeid(*(this->prod)).name()==typeid(Tinte).name()){
-        auto temp = dynamic_cast<Tinte*>(this->prod);
-        temp->setNumero(numT->text().toStdString());
-        temp->setTt(tT->currentIndex());
-    }
-    if(typeid(*(this->prod)).name()==typeid(Shampoo).name()){
-        auto temp = dynamic_cast<Shampoo*>(this->prod);
-        temp->setTC(tC->currentIndex());
-        temp->setTS(tS->currentIndex());
-    }
-    if(typeid(*(this->prod)).name()==typeid(ShamColor).name()){
-        auto temp = dynamic_cast<ShamColor*>(this->prod);
-        temp->setNumero(numT->text().toStdString());
-        temp->setTt(tT->currentIndex());
-        temp->setTC(tC->currentIndex());
-        temp->setTS(tS->currentIndex());
-    }
+            if(typeid(*(this->prod)).name()==typeid(ProdChimico).name()){
+                auto temp = dynamic_cast<ProdChimico*>(this->prod);
+                temp->SetQuantita(quantita->value());
+                temp->SetTossico((si->isChecked())?true:false);
+            }
+            if(typeid(*(this->prod)).name()==typeid(Tinte).name()){
+                auto temp = dynamic_cast<Tinte*>(this->prod);
+                temp->setNumero(numT->text().toStdString());
+                temp->setTt(tT->currentIndex());
+            }
+            if(typeid(*(this->prod)).name()==typeid(Shampoo).name()){
+                auto temp = dynamic_cast<Shampoo*>(this->prod);
+                temp->setTC(tC->currentIndex());
+                temp->setTS(tS->currentIndex());
+            }
+            if(typeid(*(this->prod)).name()==typeid(ShamColor).name()){
+                auto temp = dynamic_cast<ShamColor*>(this->prod);
+                temp->setNumero(numT->text().toStdString());
+                temp->setTt(tT->currentIndex());
+                temp->setTC(tC->currentIndex());
+                temp->setTS(tS->currentIndex());
+            }
+
+        }
+        else{
+            QMessageBox::critical(this->parentWidget(),tr("Attenzione"),tr("Non hai inserito un codice al prodotto"));
+        }
+        }
 
 }
 
