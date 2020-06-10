@@ -40,11 +40,9 @@ AddWindow::AddWindow(QWidget *parent, ListWidget* l,Container<Prodotto>* pr): QD
         }else{
             QMessageBox::critical(this->parentWidget(),tr("Attenzione"),tr("Non è stato inserito il codice del prodotto, si prega di rimediare"));
         }
-
     });
 
     body->addWidget(conferma);
-
     ChangeForm();
 }
 
