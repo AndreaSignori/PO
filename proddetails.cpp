@@ -260,7 +260,7 @@ void ProdDetails::apply()
         //throw MyException("Hai tentato modifiche ad un Prodotto inesistente!!!!");
         QMessageBox::critical(this->parentWidget(),tr("Errore"),tr("Hai tentato modifiche ad un Prodotto inesistente!!!!"));
     }else{
-        if(!this->cod->text().isEmpty()){
+        if(!this->cod->text().isEmpty() && !this->name->text().isEmpty()){
             this->prod->SetCodice(cod->text().toStdString());
             this->prod->SetNome(name->text().toStdString());
             this->prod->SetCasaProd(casaProd->text().toStdString());
@@ -293,7 +293,7 @@ void ProdDetails::apply()
 
         }
         else{
-            QMessageBox::critical(this->parentWidget(),tr("Attenzione"),tr("Non hai inserito un codice al prodotto"));
+            QMessageBox::critical(this->parentWidget(),tr("Attenzione"),tr("Non hai inserito un codice o nome al prodotto"));
         }
         }
 

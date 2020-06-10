@@ -28,18 +28,12 @@ AddWindow::AddWindow(QWidget *parent, ListWidget* l,Container<Prodotto>* pr): QD
 
     connect(conferma, &QDialogButtonBox::rejected, this, &AddWindow::close);
     connect(conferma, &QDialogButtonBox::accepted, [this](){
-        if(this->p->GetCodice()!="")
-        {
-            check = true;
-        }
-        if(check){
             this->pd->apply();
-            this->pr->push_back(this->p);
-            this->l->addEntry(this->pr->end());
-            this->close();
-        }else{
-            QMessageBox::critical(this->parentWidget(),tr("Attenzione"),tr("Non è stato inserito il codice del prodotto, si prega di rimediare"));
-        }
+            if(this->p->GetCodice()!="" && this->p->GetNome() != ""){
+                this->pr->push_back(this->p);
+                this->l->addEntry(this->pr->end());
+                this->close();
+            }
     });
 
     body->addWidget(conferma);

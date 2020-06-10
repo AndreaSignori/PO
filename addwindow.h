@@ -21,7 +21,6 @@ private:
     QComboBox* menu;
     Prodotto* p;
     ProdDetails* pd;
-    bool check = false;
 public:
     AddWindow(QWidget* parent = nullptr ,ListWidget* l = nullptr,Container<Prodotto>* pr = nullptr);
 

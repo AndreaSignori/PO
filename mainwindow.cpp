@@ -35,7 +35,6 @@ MainWindow::MainWindow(QWidget* parent): QDialog(parent), c(new Container<Prodot
     for (auto it = c->begin(); it; ++it)
         varList->addEntry(it);
     //fine test
-
     connect(varList, &ListWidget::itemSelectionChanged, [this,remove] () {
         auto items = varList->selectedItems();
         if (items.length() != 1)
