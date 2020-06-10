@@ -22,7 +22,7 @@ void ListWidget::addEntry(const Container<Prodotto>::iterator &d)
     QLabel* lc = new QLabel();
 
     ln->setText(QString::fromStdString(d->GetNome()));
-    lc->setText(QString::fromStdString("     " + d->GetCodice()));
+    lc->setText(QString::fromStdString(d->GetCodice()));
 
     ln->setAlignment(Qt::AlignCenter);
     lc->setAlignment(Qt::AlignCenter);
@@ -36,7 +36,6 @@ void ListWidget::addEntry(const Container<Prodotto>::iterator &d)
     addItem(item);
     item->setSizeHint(main->sizeHint());
     setItemWidget(item, main);
-
 }
 
 void ListWidget::rmSelected(bool) {

@@ -3,7 +3,24 @@
 MainWindow::MainWindow(QWidget* parent): QDialog(parent), c(new Container<Prodotto>()), varDet(new ProdDetails)
 {
     setWindowTitle("Prodotti Deluxe Parrucchieri");
-    QHBoxLayout *body = new QHBoxLayout(this); // layout
+    QVBoxLayout *mainBody = new QVBoxLayout(this);
+
+    QMenuBar *menuBar = new QMenuBar();
+    QMenu *menu = menuBar->addMenu(tr("&File"));
+
+    QAction *actSave = new QAction(tr("&Save"));
+    QAction *actLoad = new QAction(tr("&Load"));
+    /*
+    connect(actSave, &QAction::triggered, ...)
+    connect(actLoad, &QAction::triggered, ...
+    */
+    menu->addAction(actSave);
+    menu->addAction(actLoad);
+
+    mainBody->addWidget(menuBar);
+
+    QHBoxLayout *body = new QHBoxLayout(); // layout
+    mainBody->addLayout(body);
     resize(600, 500);
 
 
@@ -35,6 +52,8 @@ MainWindow::MainWindow(QWidget* parent): QDialog(parent), c(new Container<Prodot
     for (auto it = c->begin(); it; ++it)
         varList->addEntry(it);
     //fine test
+
+    varList->setStyleSheet(tr("QListWidget::item{border-bottom:1px solid black;}"));
     connect(varList, &ListWidget::itemSelectionChanged, [this,remove] () {
         auto items = varList->selectedItems();
         if (items.length() != 1)
@@ -53,25 +72,21 @@ MainWindow::MainWindow(QWidget* parent): QDialog(parent), c(new Container<Prodot
         AddWindow(this,varList,c).exec();
     });
 
-    left->addWidget(add);
-    left->addWidget(varList);
+
 
     connect(remove, &QPushButton::clicked, [this] (bool) {
         varList->rmSelected(true);
     });
 
-    left->addWidget(remove);
-    body->addLayout(left,33);
+
 
     QVBoxLayout* vLay1 = new QVBoxLayout();//layout per form e bottone "applica modifiche"
     QHBoxLayout* hLay1 = new QHBoxLayout();//layout per bottoni
 
     QLabel* title = new QLabel("Dettagli Prodotto:");
-    vLay1->addWidget(title);
+
     title->setAlignment(Qt::AlignCenter);
-    vLay1->addStretch(1);
-    vLay1->addLayout(varDet);
-    vLay1->addStretch(8);
+
     QPushButton* modifiche = new QPushButton;
     modifiche->setText("Apply");
 
@@ -87,8 +102,21 @@ MainWindow::MainWindow(QWidget* parent): QDialog(parent), c(new Container<Prodot
                 }
             });
 
+    left->addWidget(add);
+    left->addWidget(varList);
+    left->addWidget(remove);
+
+    body->addLayout(left,33);
+
+    vLay1->addWidget(title);
+    vLay1->addStretch(1);
+    vLay1->addLayout(varDet);
+    vLay1->addStretch(8);
+
     hLay1->addWidget(modifiche);
     hLay1->addWidget(reset);
+
     vLay1->addLayout(hLay1);
+
     body->addLayout(vLay1,66);
 }
