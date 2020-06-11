@@ -53,7 +53,10 @@ void ProdDetails::showDet(Prodotto &prod)
     if(!QPixmap(path).isNull())
     img64->setPixmap(QPixmap(path).scaled(80,80));
 
-    if(typeid(prod).name()==typeid(ProdChimico).name()){
+    if(typeid(prod).name()==typeid(ProdChimico).name() ||
+            typeid(prod).name()==typeid(Shampoo).name() ||
+            typeid(prod).name()==typeid(Tinte).name() ||
+            typeid(prod).name()==typeid(ShamColor).name()){
         //faccio dynamic cast per avere i metodi del tipo dinamico
         auto temp = dynamic_cast<ProdChimico*>(*prod);
 
@@ -84,7 +87,9 @@ void ProdDetails::showDet(Prodotto &prod)
         //fine inserimento ripeto per ogni classe
 
     }
-    if(typeid(prod).name()==typeid(Tinte).name()){
+
+    if(typeid(prod).name()==typeid(Tinte).name() ||
+            typeid(prod).name()==typeid(ShamColor).name()){
         auto temp = dynamic_cast<Tinte*>(*prod);
 
         tT = new QComboBox();
@@ -109,7 +114,9 @@ void ProdDetails::showDet(Prodotto &prod)
         addRow(tr("&Numero Tinta: "),numT);
         addRow(tr("&Tipo Tinta: "),tT);
     }
-    if(typeid(prod).name()==typeid(Shampoo).name()){
+
+    if(typeid(prod).name()==typeid(Shampoo).name() ||
+            typeid(prod).name()==typeid(ShamColor).name()){
         auto temp = dynamic_cast<Shampoo*>(*prod);
 
         tC = new QComboBox();
@@ -142,69 +149,6 @@ void ProdDetails::showDet(Prodotto &prod)
         addRow(tr("&Tipo Capelli"),tC);
         addRow(tr("&Tipo Shampoo"),tS);
     }
-    if(typeid(prod).name()==typeid(ShamColor).name()){
-        auto temp = dynamic_cast<ShamColor*>(*prod);
-        //parte Tinte
-
-        tT = new QComboBox();
-        tT->setObjectName("tT");
-        numT = new QLineEdit();
-        numT->setObjectName("numT");
-        //creazione combobox per selezione tinta
-        QStringList listTinte =  QStringList();
-        for(int i=0; i<2;i++)
-            listTinte << temp->getArrayTt()+(6*i);
-        tT->addItems(listTinte);
-        //setto l'indice corrente della combobox corrispondente al Tipo dell'oggetto
-        const char* c = temp->getTipoTinta();
-        int index = tT->findText(c);
-        if(index != -1){
-            tT->setCurrentIndex(index);
-        }
-        //fine comboBox
-        //setto il numero Tinta
-        numT->setText(QString::fromStdString(temp->getNumero()));
-
-        addRow(tr("&Numero Tinta: "),numT);
-        addRow(tr("&Tipo Tinta: "),tT);
-
-        //fine Tinte
-
-        //parte SHAMPOO
-
-        tC = new QComboBox();
-        tC->setObjectName("tC");
-        tS = new QComboBox();
-        tS->setObjectName("tS");
-
-        QStringList listCapelli =  QStringList();
-        QStringList listShampoo =  QStringList();
-
-        for(int i=0; i<5;i++)
-            listCapelli<< temp->getArrayTC()+(9*i);
-        for(int i=0; i<6;i++)
-            listShampoo<< temp->getArrayTS()+(15*i);
-
-        tC->addItems(listCapelli);
-        tS->addItems(listShampoo);
-        //setto l'indice corrente della combobox corrispondente al Tipo dell'oggetto
-        const char* cap = temp->getTipoCapelli();
-        const char* sha = temp->getTipoShampoo();
-
-        int indexCap = tC->findText(cap);
-        int indexSha = tS->findText(sha);
-
-        if(indexCap != -1 && indexSha != -1){
-            tC->setCurrentIndex(indexCap);
-            tS->setCurrentIndex(indexSha);
-        }
-
-        addRow(tr("&Tipo Capelli"),tC);
-        addRow(tr("&Tipo Shampoo"),tS);
-        //fine Shampoo
-    }
-
-
 }
 
 void ProdDetails::clear()
@@ -221,30 +165,24 @@ void ProdDetails::clear()
     //verrà visualizzato un warning che l'elemento non esiste
     //e che quindi non può essere rimosso
     if(this->prod){
-        if(typeid(*prod).name() == typeid(ProdChimico).name()){
+        if(typeid(*prod).name() == typeid(ProdChimico).name() ||
+                typeid(*prod).name() == typeid(Tinte).name() ||
+                typeid(*prod).name() == typeid(Shampoo).name() ||
+                typeid(*prod).name() == typeid(ShamColor).name()){
             removeRow(g1);
 
             removeRow(quantita);
         }
 
-        if(typeid(*prod).name() == typeid(Tinte).name()){
+        if(typeid(*prod).name() == typeid(Tinte).name() ||
+                typeid(*prod).name() == typeid(ShamColor).name()){
             removeRow(tT);
 
             removeRow(numT);
         }
 
-        if(typeid(*prod).name() == typeid(Shampoo).name()){
-            removeRow(tC);
-
-            removeRow(tS);
-
-        }
-
-        if(typeid(*prod).name() == typeid(ShamColor).name()){
-            removeRow(tT);
-
-            removeRow(numT);
-
+        if(typeid(*prod).name() == typeid(Shampoo).name() ||
+                typeid(*prod).name() == typeid(ShamColor).name()){
             removeRow(tC);
 
             removeRow(tS);
@@ -257,7 +195,6 @@ void ProdDetails::clear()
 void ProdDetails::apply()
 {
     if(!this->prod){
-        //throw MyException("Hai tentato modifiche ad un Prodotto inesistente!!!!");
         QMessageBox::critical(this->parentWidget(),tr("Errore"),tr("Hai tentato modifiche ad un Prodotto inesistente!!!!"));
     }else{
         if(!this->cod->text().isEmpty() && !this->name->text().isEmpty()){
@@ -268,25 +205,25 @@ void ProdDetails::apply()
             this->prod->SetDiscount(sconto->value());
             this->prod->SetImg64(this->path.toStdString());
 
-            if(typeid(*(this->prod)).name()==typeid(ProdChimico).name()){
+            if(typeid(*(this->prod)).name()==typeid(ProdChimico).name() ||
+                    typeid(*(this->prod)).name()==typeid(Tinte).name() ||
+                    typeid(*(this->prod)).name()==typeid(Shampoo).name() ||
+                    typeid(*(this->prod)).name()==typeid(ShamColor).name()){
                 auto temp = dynamic_cast<ProdChimico*>(this->prod);
                 temp->SetQuantita(quantita->value());
                 temp->SetTossico((si->isChecked())?true:false);
             }
-            if(typeid(*(this->prod)).name()==typeid(Tinte).name()){
+
+            if(typeid(*(this->prod)).name()==typeid(Tinte).name() ||
+                    typeid(*(this->prod)).name()==typeid(ShamColor).name()){
                 auto temp = dynamic_cast<Tinte*>(this->prod);
                 temp->setNumero(numT->text().toStdString());
                 temp->setTt(tT->currentIndex());
             }
-            if(typeid(*(this->prod)).name()==typeid(Shampoo).name()){
+
+            if(typeid(*(this->prod)).name()==typeid(Shampoo).name() ||
+                    typeid(*(this->prod)).name()==typeid(ShamColor).name()){
                 auto temp = dynamic_cast<Shampoo*>(this->prod);
-                temp->setTC(tC->currentIndex());
-                temp->setTS(tS->currentIndex());
-            }
-            if(typeid(*(this->prod)).name()==typeid(ShamColor).name()){
-                auto temp = dynamic_cast<ShamColor*>(this->prod);
-                temp->setNumero(numT->text().toStdString());
-                temp->setTt(tT->currentIndex());
                 temp->setTC(tC->currentIndex());
                 temp->setTS(tS->currentIndex());
             }
