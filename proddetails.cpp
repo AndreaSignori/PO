@@ -4,6 +4,8 @@ using namespace std;
 
 ProdDetails::ProdDetails(QWidget *parent): QFormLayout(parent),prod(nullptr), name(new QLineEdit()), cod(new QLineEdit()), casaProd(new QLineEdit()), img64(new QLabel()), prezzo(new QDoubleSpinBox()), sconto(new QSpinBox()),quantita(new QSpinBox()),g1(new QGroupBox()),tC(new QComboBox()),tS(new QComboBox()),numT(new QLineEdit()),tT(new QComboBox())
 {
+    //genero la grafica dei dettagli del prodotto che sarà visibile nella parte sinistra della GUI
+
     img64->setText(tr("nessun file selezionato"));
     test->addWidget(img64);
     searchImg = new QPushButton(tr("browse"));
@@ -38,11 +40,13 @@ ProdDetails::ProdDetails(QWidget *parent): QFormLayout(parent),prod(nullptr), na
 
     addRow(tr("&Sconto: "),sconto);
 }
-
+//funzione che imposta i campi del prodotto selezionato sulla Gui
 void ProdDetails::showDet(Prodotto &prod)
 {
+    //funzione per pulire i campi nel caso si sia cambiato prodotto
     clear();
     this->prod = &prod;
+    //imposto i nuovi parametri dei campi del nuovo prodotto
     cod->setText(QString::fromStdString(prod.GetCodice()));
     name->setText(QString::fromStdString(prod.GetNome()));
     casaProd->setText(QString::fromStdString(prod.GetCasaProd()));
