@@ -53,10 +53,16 @@ void ProdDetails::showDet(Prodotto &prod)
     prezzo->setValue(prod.GetPrezzoInt());
     sconto->setValue(prod.GetDiscount());
     searchImg->setEnabled(true);
+    /* uso la variabile "path" per ricordare il percorso dell'immagine e genero un QPixmap con "path"
+     * faccio un controllo per vedere se esiste l'immagine così evito di avere warning di visualizzazione
+     */
     path = QString::fromStdString(prod.GetImg());
     if(!QPixmap(path).isNull())
     img64->setPixmap(QPixmap(path).scaled(80,80));
 
+    /* vari controlli per identificare il tipo a run time del Prodotto
+     * per generare i campi necessari per ogni tipologia del Prodotto
+     */
     if(typeid(prod).name()==typeid(ProdChimico).name() ||
             typeid(prod).name()==typeid(Shampoo).name() ||
             typeid(prod).name()==typeid(Tinte).name() ||
@@ -154,7 +160,7 @@ void ProdDetails::showDet(Prodotto &prod)
         addRow(tr("&Tipo Shampoo"),tS);
     }
 }
-
+//funzione di pulizia dei campi
 void ProdDetails::clear()
 {
     cod->clear();
@@ -165,9 +171,10 @@ void ProdDetails::clear()
     img64->setText("vuoto");
     path.clear();
     searchImg->setEnabled(false);
-    //a causa di un remove forzato di ogni oggetto sulla console
-    //verrà visualizzato un warning che l'elemento non esiste
-    //e che quindi non può essere rimosso
+    /* vari controlli per identificare quale prodotto sto pulendo ed eliminare solo
+     * i campi necessari. Senza questo controllo si avrebbero vari warning a terminale
+     * per tentata rimozione di campi inesistenti
+     */
     if(this->prod){
         if(typeid(*prod).name() == typeid(ProdChimico).name() ||
                 typeid(*prod).name() == typeid(Tinte).name() ||
@@ -195,12 +202,14 @@ void ProdDetails::clear()
     }
     this->prod = nullptr;
 }
-
+//funzione per applicare le modifiche al prodotto
 void ProdDetails::apply()
 {
+    //controllo nel caso il prodotto non sia selezionato
     if(!this->prod){
         QMessageBox::critical(this->parentWidget(),tr("Errore"),tr("Hai tentato modifiche ad un Prodotto inesistente!!!!"));
     }else{
+        //controllo che ci sia almeno il nome e codice
         if(!this->cod->text().isEmpty() && !this->name->text().isEmpty()){
             this->prod->SetCodice(cod->text().toStdString());
             this->prod->SetNome(name->text().toStdString());
@@ -209,10 +218,12 @@ void ProdDetails::apply()
             this->prod->SetDiscount(sconto->value());
             this->prod->SetImg64(this->path.toStdString());
 
+            //vari controlli per individuare quali campi esistono in base al tipo run time del Prodotto
             if(typeid(*(this->prod)).name()==typeid(ProdChimico).name() ||
                     typeid(*(this->prod)).name()==typeid(Tinte).name() ||
                     typeid(*(this->prod)).name()==typeid(Shampoo).name() ||
                     typeid(*(this->prod)).name()==typeid(ShamColor).name()){
+                //casto dinamicamente per ogni controllo per avere i metodi necessari a inserire i parametri
                 auto temp = dynamic_cast<ProdChimico*>(this->prod);
                 temp->SetQuantita(quantita->value());
                 temp->SetTossico((si->isChecked())?true:false);
@@ -234,13 +245,14 @@ void ProdDetails::apply()
 
         }
         else{
+            //messaggio di notifica nel caso si lasci nome o codice vuoti
             QMessageBox::critical(this->parentWidget(),tr("Attenzione"),tr("Non hai inserito un codice o nome al prodotto"));
         }
         }
 
 }
 
-
+//simile al pulsante di pulizia ma questo non elimina i campi come su clear
  void ProdDetails::reset()
 {
     cod->clear();
