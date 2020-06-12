@@ -24,4 +24,5 @@ QJsonObject IO_Container::fromProdToJson(const typename Container<Prodotto>::ite
             file["tipoTT"] = static_cast<QString>(TTptr->getTipoTinta());
         }
     }
+    return file;
 }
