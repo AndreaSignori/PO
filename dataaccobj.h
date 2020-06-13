@@ -4,11 +4,13 @@
 #include <string>
 #include <QJsonObject>
 #include <QJsonArray>
+#include <QFile>
+#include <QJsonDocument>
+#include <QDir>
 
 class DataAccObj
 {
 public:
-
     static void setPath(const std::string &path);
     static std::string getPath();
     static void setFile(const QJsonObject &file);

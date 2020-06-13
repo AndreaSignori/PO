@@ -8,7 +8,7 @@ const char Shampoo::tiposhampoo_nome[6][15] = {"GENERICO","VOLUMIZZANTE","ANTICA
 const char Tinte::tipoT[2][6] = {"OLIO", "CREMA"};
 
 //Prodotto
-Prodotto::Prodotto(string c , string n , string cP ,string img, float p , int dis):
+Prodotto::Prodotto(string c , string n , string cP ,string img, double p , int dis):
     codice(c),
     nome(n),
     casaProd(cP),
@@ -34,7 +34,7 @@ std::string Prodotto::GetNome() const {
     return nome;
 }
 
-float Prodotto::GetPrezzoInt() const {
+double Prodotto::GetPrezzoInt() const {
     return prezzo;
 }
 
@@ -71,7 +71,7 @@ void Prodotto::SetNome(string newnome) {
         nome = newnome;
 }
 
-void Prodotto::SetPrezzo(float newprezzo) {
+void Prodotto::SetPrezzo(double newprezzo) {
     if (newprezzo >= 0.0)
         prezzo = newprezzo;
 }
@@ -91,7 +91,7 @@ Prodotto *Prodotto::operator*()
 }
 
 //Prodotto Chimico
-ProdChimico::ProdChimico(string c , string n , string cP ,string img, float p , int dis,int q, bool tx):
+ProdChimico::ProdChimico(string c , string n , string cP ,string img, double p , int dis,int q, bool tx):
     Prodotto(c,n,cP,img,p,dis),
     quantitaml(q),
     tossico(tx)
@@ -154,7 +154,7 @@ ProdChimico *ProdChimico::operator*()
 }
 
 //shampoo
-Shampoo::Shampoo(string c, string n, string cP, string img, float p, int dis,int q, bool tx,TipoCapelli cap, TipoShampoo s):
+Shampoo::Shampoo(string c, string n, string cP, string img, double p, int dis,int q, bool tx,TipoCapelli cap, TipoShampoo s):
     Prodotto(c,n,cP,img,p,dis),
     ProdChimico(c,n,cP,img,p,dis,q,tx),tC(cap),
     tS(s)
@@ -168,12 +168,12 @@ Shampoo::Shampoo(const Shampoo *s):
     tC(s->getTC()),
     tS(s->getTS()){}
 
-Shampoo::TipoCapelli Shampoo::getTC() const
+TipoCapelli Shampoo::getTC() const
 {
     return tC;
 }
 
-Shampoo::TipoShampoo Shampoo::getTS() const
+TipoShampoo Shampoo::getTS() const
 {
     return tS;
 }
@@ -239,12 +239,12 @@ const char* Shampoo::getTipoShampoo() const
     return Shampoo::tiposhampoo_nome[tS];
 }
 
-void Shampoo::setTipoCapelli(const Shampoo::TipoCapelli &type)
+void Shampoo::setTipoCapelli(const TipoCapelli &type)
 {
     Shampoo::tC = type;
 }
 
-void Shampoo::setTipoShampoo(const Shampoo::TipoShampoo &type)
+void Shampoo::setTipoShampoo(const TipoShampoo &type)
 {
     Shampoo::tS = type;
 }
@@ -284,7 +284,7 @@ Shampoo *Shampoo::operator*()
 
 //tinte
 
-Tinte::Tinte(string c, string n, string cP, string img, float p, int dis, int q, bool tx, string num, Tinte::TipoTinta t):
+Tinte::Tinte(string c, string n, string cP, string img, double p, int dis, int q, bool tx, string num, TipoTinta t):
     Prodotto(c,n,cP,img,p,dis),
     ProdChimico(c,n,cP,img,p,dis,q,tx),
     numero(num),
@@ -314,7 +314,7 @@ void Tinte::setNumero(const std::string &value)
     numero = value;
 }
 
-Tinte::TipoTinta Tinte::getTt() const
+TipoTinta Tinte::getTt() const
 {
     return tt;
 }
@@ -371,7 +371,7 @@ Tinte *Tinte::operator*()
 }
 
 //shamColor
-ShamColor::ShamColor(string c, string n, string cP, string img, float p, int dis, int q, bool tx, string num, Tinte::TipoTinta t, Shampoo::TipoCapelli cap, Shampoo::TipoShampoo s):
+ShamColor::ShamColor(string c, string n, string cP, string img, double p, int dis, int q, bool tx, string num, TipoTinta t, TipoCapelli cap, TipoShampoo s):
     Prodotto(c,n,cP,img,p,dis),
     ProdChimico(c,n,cP,img,p,dis,q,tx),
     Tinte(c,n,cP,img,p,dis,q,tx,num,t),

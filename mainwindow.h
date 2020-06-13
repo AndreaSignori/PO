@@ -5,7 +5,7 @@
 #include <QDialog>
 #include <QtCore>
 #include <QtWidgets>
-#include "container.h"
+#include "io_container.h"
 #include "prodotto.h"
 #include "listwidget.h"
 #include "proddetails.h"
@@ -21,6 +21,10 @@ private:
     ProdDetails* varDet;
 public:
     MainWindow(QWidget* parent = nullptr);
+private slots:
+    void salva();
+    void carica();
+    //void update();
 };
 
 #endif // MAINWINDOW_H

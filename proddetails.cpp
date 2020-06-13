@@ -70,6 +70,7 @@ void ProdDetails::showDet(Prodotto &prod)
         quantita->setMinimum(0);
         quantita->setSuffix(" mL");
         quantita->setValue(temp->GetQuantita());
+        //std::cout<<"TypeId ProdChimico : " << typeid(ProdChimico).name() << std::endl;
 
         g1 = new QGroupBox();
         QHBoxLayout* hg1 = new QHBoxLayout();

@@ -8,12 +8,13 @@ MainWindow::MainWindow(QWidget* parent): QDialog(parent), c(new Container<Prodot
     QMenuBar *menuBar = new QMenuBar();
     QMenu *menu = menuBar->addMenu(tr("&File"));
 
-    QAction *actSave = new QAction(tr("&Save"));
-    QAction *actLoad = new QAction(tr("&Load"));
-    /*
-    connect(actSave, &QAction::triggered, ...)
-    connect(actLoad, &QAction::triggered, ...
-    */
+    QAction *actSave = new QAction(tr("&Salva"));
+    QAction *actLoad = new QAction(tr("&Carica"));
+
+    //connect(actSave, &QAction::triggered,  )
+    connect(actSave,&QAction::triggered,this, &MainWindow::salva);
+    connect(actLoad, &QAction::triggered, this, &MainWindow::carica);
+
     menu->addAction(actSave);
     menu->addAction(actLoad);
 
@@ -27,22 +28,7 @@ MainWindow::MainWindow(QWidget* parent): QDialog(parent), c(new Container<Prodot
     QVBoxLayout *left = new QVBoxLayout;
 
     //Test con valori immessi
-    ProdChimico* p = new ProdChimico();
-    Tinte* t =  new Tinte();
-    Shampoo* s = new Shampoo();
-    ShamColor* u =  new ShamColor();
-    p->SetCodice("0");
-    p->SetNome("ProdChimico");
-    t->SetCodice("1");
-    t->SetNome("Tinta");
-    s->SetCodice("2");
-    s->SetNome("Shampoo");
-    u->SetCodice("3");
-    u->SetNome("ShamColor");
-    c->push_front(p);
-    c->push_front(t);
-    c->push_front(s);
-    c->push_front(u);
+    carica();
     varList = new ListWidget(c);
 
     //tasto "remove" rimuove la riga selezionata nella lista
@@ -135,4 +121,22 @@ MainWindow::MainWindow(QWidget* parent): QDialog(parent), c(new Container<Prodot
     vLay1->addLayout(hLay1);
 
     body->addLayout(vLay1,66);
+}
+
+void MainWindow::salva()    {
+    if (QMessageBox::question(this, "Salva", "Vuoi salvare la lista prodotti?", QMessageBox::Yes|QMessageBox::No) == QMessageBox::Yes) {
+        try {
+            DataAccObj::setFile(IO_Container::fromContToJson(&*c));
+        } catch (MyException e) {
+            qDebug() << e.what() << '\n';
+        }
+    }
+}
+
+void MainWindow::carica() {
+    try {
+        IO_Container::fromJsonToCont(DataAccObj::getFile(),c);
+    } catch (MyException e) {
+        qDebug() << e.what() << '\n';
+    }
 }

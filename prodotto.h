@@ -8,17 +8,17 @@ class Prodotto
 {
 private:
     std::string codice, nome, casaProd, img64;
-    float prezzo;
+    double prezzo;
     int discount;
 public:
-    Prodotto(std::string c = "", std::string n = "", std::string cP = "",std::string img = "", float p = 0.0 , int dis = 0);
+    Prodotto(std::string c = "", std::string n = "", std::string cP = "",std::string img = "", double p = 0.0 , int dis = 0);
 
     virtual ~Prodotto() = 0;
 
 
     std::string GetCodice() const;
     std::string GetNome() const;
-    float GetPrezzoInt() const;
+    double GetPrezzoInt() const;
     int GetDiscount() const;
     std::string GetCasaProd() const;
     std::string GetImg() const;
@@ -26,7 +26,7 @@ public:
     void SetImg64(std::string img);
     void SetCodice(std::string newcodice);
     void SetNome(std::string newnome);
-    void SetPrezzo(float newprezzo);
+    void SetPrezzo(double newprezzo);
     void SetDiscount(int newdiscount);
     void SetCasaProd(std::string casaprod);
 
@@ -42,7 +42,7 @@ private:
     bool tossico;
 
 public:
-    ProdChimico(std::string c = "", std::string n = "", std::string cP = "",std::string img = "", float p = 0.0 , int dis = 0, int q = 0, bool tx = false) ;
+    ProdChimico(std::string c = "", std::string n = "", std::string cP = "",std::string img = "", double p = 0.0 , int dis = 0, int q = 0, bool tx = false) ;
     ProdChimico(const ProdChimico *pC);
 
     ~ProdChimico() ;
@@ -61,11 +61,13 @@ public:
     virtual ProdChimico* operator*();
 };
 
+enum TipoCapelli { GENERALE, RICCI, LISCI, COLORATI, ROVINATI };
+enum TipoShampoo { GENERICO, VOLUMIZZANTE, ANTICADUTA, SEBOREGOLATORE, ANTIFORFORA, COLORANTE };
+
 class Shampoo : virtual public ProdChimico
 {
 protected:
-    enum TipoCapelli { GENERALE, RICCI, LISCI, COLORATI, ROVINATI };
-    enum TipoShampoo { GENERICO, VOLUMIZZANTE, ANTICADUTA, SEBOREGOLATORE, ANTIFORFORA, COLORANTE };
+
 private:
 
     static char const tipocapelli_nome[5][9];
@@ -76,7 +78,7 @@ private:
     TipoShampoo tS;
 
 public:
-    Shampoo(std::string c = "", std::string n = "", std::string cP = "",std::string img = "", float p = 0.0 , int dis = 0,int q = 0, bool tx = false,TipoCapelli cap = TipoCapelli::GENERALE, TipoShampoo s = TipoShampoo::GENERICO);
+    Shampoo(std::string c = "", std::string n = "", std::string cP = "",std::string img = "", double p = 0.0 , int dis = 0,int q = 0, bool tx = false,TipoCapelli cap = TipoCapelli::GENERALE, TipoShampoo s = TipoShampoo::GENERICO);
     Shampoo(const Shampoo* s);
 
 
@@ -105,10 +107,10 @@ public:
     virtual Shampoo* operator*();
 };
 
+enum TipoTinta{OLIO, CREMA};
+
 class Tinte : virtual public ProdChimico
 {
-protected:
-    enum TipoTinta{OLIO, CREMA};
 private:
 
     std::string numero;
@@ -117,7 +119,7 @@ private:
 
 public:
 
-    Tinte(std::string c = "", std::string n = "", std::string cP = "",std::string img = "", float p = 0.0 , int dis = 0, int q = 0, bool tx = false, std::string num = "", TipoTinta t = TipoTinta::OLIO );
+    Tinte(std::string c = "", std::string n = "", std::string cP = "",std::string img = "", double p = 0.0 , int dis = 0, int q = 0, bool tx = false, std::string num = "", TipoTinta t = TipoTinta::OLIO );
     Tinte(const Tinte* t);
     ~Tinte() {}
 
@@ -142,7 +144,7 @@ class ShamColor : public Tinte, public Shampoo
 private:
 
 public:
-    ShamColor(std::string c = "", std::string n = "", std::string cP = "",std::string img = "", float p = 0.0 , int dis = 0, int q = 0, bool tx = false, std::string num = "", TipoTinta t = TipoTinta::CREMA, TipoCapelli cap = TipoCapelli::GENERALE, TipoShampoo s = TipoShampoo::GENERICO);
+    ShamColor(std::string c = "", std::string n = "", std::string cP = "",std::string img = "", double p = 0.0 , int dis = 0, int q = 0, bool tx = false, std::string num = "", TipoTinta t = TipoTinta::CREMA, TipoCapelli cap = TipoCapelli::GENERALE, TipoShampoo s = TipoShampoo::GENERICO);
     ShamColor(const ShamColor* sC);
     ~ShamColor() {}
 

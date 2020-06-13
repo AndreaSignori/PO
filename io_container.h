@@ -7,14 +7,13 @@
 #include "myexception.h"
 
 
-class IO_Container : virtual public Container<Prodotto>, public DataAccObj
+class IO_Container : public DataAccObj
 {
 public:
-    QJsonObject fromProdToJson(const typename Container<Prodotto>::iterator& i) const;
-    void fromJsonToProd(const QJsonObject& file);
-    using Container<Prodotto>::Container;
-    QJsonObject fromContToJson() const;
-    void fromJsonToCont(const QJsonObject& file);
+    static QJsonObject fromProdToJson(const typename Container<Prodotto>::iterator& i);
+    static Prodotto* fromJsonToProd(const QJsonObject& file);
+    static QJsonObject fromContToJson(Container<Prodotto> *c);
+    static void fromJsonToCont(const QJsonObject& file,Container<Prodotto> *c);
 };
 
 #endif // IO_CONTAINER_H
