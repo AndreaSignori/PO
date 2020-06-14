@@ -39,10 +39,10 @@ MainWindow::MainWindow(QWidget* parent): QDialog(parent), c(new Container<Prodot
     s->SetNome("Shampoo");
     u->SetCodice("3");
     u->SetNome("ShamColor");
-    c->push_front(p);
-    c->push_front(t);
-    c->push_front(s);
-    c->push_front(u);
+    c->push_back(p);
+    c->push_back(t);
+    c->push_back(s);
+    c->push_back(u);
     varList = new ListWidget(c);
 
     //tasto "remove" rimuove la riga selezionata nella lista
@@ -81,7 +81,8 @@ MainWindow::MainWindow(QWidget* parent): QDialog(parent), c(new Container<Prodot
 
     //creo un segnale alla pressione di remove per eliminare la riga selezionata dall'utente
     connect(remove, &QPushButton::clicked, [this] (bool) {
-        varList->rmSelected(true);
+        varList->rmSelected(true,varDet);
+
     });
 
     QVBoxLayout* vLay1 = new QVBoxLayout();//layout per form e bottone "applica modifiche"

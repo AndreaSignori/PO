@@ -12,7 +12,7 @@ ListWidget::ListWidget(Container<Prodotto>* c, QWidget* parent):QListWidget(pare
 {
     setSelectionMode(QAbstractItemView::ExtendedSelection);
 }
-
+//costruisce una lista con nome e codice del prodotto
 void ListWidget::addEntry(const Container<Prodotto>::iterator &d)
 {
     QWidget* main = new QWidget();
@@ -37,12 +37,13 @@ void ListWidget::addEntry(const Container<Prodotto>::iterator &d)
     item->setSizeHint(main->sizeHint());
     setItemWidget(item, main);
 }
-
-void ListWidget::rmSelected(bool) {
+//funzione di rimozione dell'oggeto selezionato
+void ListWidget::rmSelected(bool,ProdDetails* p) {
     auto selected_items = selectedItems();
     if (!selected_items.count()) return;
     if (QMessageBox::question(this, "Delete", "Delete selected items?", QMessageBox::Yes|QMessageBox::No) == QMessageBox::Yes)
         for (auto item : selected_items) {
+            p->clear();
             c->remove( static_cast<ListWidgetItem*>(item)->getProdotto() );
             delete item;
         }

@@ -5,6 +5,7 @@
 #include <QtWidgets>
 #include <container.h>
 #include <prodotto.h>
+#include <proddetails.h>
 
 class ListWidgetItem : public QListWidgetItem {
     Container<Prodotto>::iterator iterator;
@@ -24,7 +25,7 @@ public:
 
     void addEntry(const Container<Prodotto>::iterator& d);
 public slots:
-    void rmSelected(bool);
+    void rmSelected(bool,ProdDetails*);
 };
 
 #endif // LISTWIDGET_H

@@ -23,7 +23,6 @@ Prodotto::Prodotto(string c , string n , string cP ,string img, float p , int di
 
 Prodotto::~Prodotto()
 {
-
 }
 
 std::string Prodotto::GetCodice() const {
