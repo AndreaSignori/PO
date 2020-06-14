@@ -1,7 +1,7 @@
-#include <QFile>
-#include <QJsonDocument>
+
 #include "myexception.h"
 #include "dataaccobj.h"
+#include "iostream"
 
 static string filename;
 
@@ -9,16 +9,20 @@ QJsonObject DataAccObj::fromStringToJson(const std::string &stringa)   {
     return QJsonDocument().fromJson(QString::fromStdString(stringa).toUtf8()).object();
 }
 
-void DataAccObj::setFile(const QJsonObject &file)   {
-    QFile jfile(QString::fromStdString(filename));
-    jfile.open(QFile::WriteOnly);
-    if(jfile.isWritable()){
-        QJsonDocument doc;
-        doc.setObject(file);
-        jfile.write(doc.toJson());
+void DataAccObj::setFile(const QJsonObject &json)   {
+    QJsonDocument document;
+    document.setObject(json);
+    QFile jsonFile;
+    if(filename != ""){
+        QFile jsonFile(QString::fromStdString(filename));
+        jsonFile.open(QFile::WriteOnly);
+        jsonFile.write(document.toJson());
     }
-    else
-        throw MyException("Impossibile leggere il file");
+    else    {
+        QFile jsonFile(QString::fromStdString("prodotti.json"));
+        jsonFile.open(QFile::WriteOnly);
+        jsonFile.write(document.toJson());
+    }
 }
 
 QJsonObject DataAccObj::getFile()   {

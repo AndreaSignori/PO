@@ -21,8 +21,8 @@ SOURCES += main.cpp \
     listwidget.cpp \
     proddetails.cpp \
     addwindow.cpp \
-    io_container.cpp \
-    dataaccobj.cpp
+    dataaccobj.cpp \
+    io_container.cpp
 
 HEADERS += \
     prodotto.h \
@@ -33,5 +33,5 @@ HEADERS += \
     validator.h \
     proddetails.h \
     addwindow.h \
-    io_container.h \
-    dataaccobj.h
+    dataaccobj.h \
+    io_container.h
