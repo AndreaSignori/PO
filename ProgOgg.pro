@@ -34,4 +34,5 @@ HEADERS += \
     proddetails.h \
     addwindow.h \
     dataaccobj.h \
-    io_container.h
+    io_container.h \
+    defaultlist.h

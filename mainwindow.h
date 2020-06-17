@@ -10,6 +10,7 @@
 #include "listwidget.h"
 #include "proddetails.h"
 #include "addwindow.h"
+#include "defaultlist.h"
 
 class MainWindow: public QDialog
 {

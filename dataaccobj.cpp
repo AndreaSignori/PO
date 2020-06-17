@@ -29,7 +29,7 @@ QJsonObject DataAccObj::getFile()   {
     QFile jfile(QString::fromStdString(filename));
     jfile.open(QFile::ReadOnly);
     if(!jfile.isReadable())
-        throw MyException("Impossibile leggere il file");
+        throw MyException("Impossibile leggere il file, file assente o non leggibile");
     return QJsonDocument().fromJson(jfile.readAll()).object();
 }
 

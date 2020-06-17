@@ -128,6 +128,7 @@ void MainWindow::salva()    {
     if (QMessageBox::question(this, "Salva", "Vuoi salvare la lista prodotti?", QMessageBox::Yes|QMessageBox::No) == QMessageBox::Yes) {
         try {
             DataAccObj::setFile(IO_Container::fromContToJson(&*c));
+            QMessageBox::question(this, "Salvataggio completato", "La lista prodotti e' stata salvata correttamente", QMessageBox::Ok);
         } catch (MyException e) {
             qDebug() << e.what() << '\n';
         }
@@ -139,5 +140,8 @@ void MainWindow::carica() {
         IO_Container::fromJsonToCont(DataAccObj::getFile(),c);
     } catch (MyException e) {
         qDebug() << e.what() << '\n';
+        if(QMessageBox::question(this, "Errore", "Non e' stato possibile caricare una lista prodotti, vuoi caricare la lista di default?", QMessageBox::Yes|QMessageBox::No) == QMessageBox::Yes)   {
+            IO_Container::fromJsonToCont(DataAccObj::fromStringToJson(defaultlist::json),c);
+        }
     }
 }
