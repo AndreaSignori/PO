@@ -5,7 +5,6 @@ using namespace std;
 ProdDetails::ProdDetails(QWidget *parent): QFormLayout(parent),prod(nullptr), name(new QLineEdit()), cod(new QLineEdit()), casaProd(new QLineEdit()), img64(new QLabel()), prezzo(new QDoubleSpinBox()), sconto(new QSpinBox()),quantita(new QSpinBox()),g1(new QGroupBox()),tC(new QComboBox()),tS(new QComboBox()),numT(new QLineEdit()),tT(new QComboBox())
 {
     //genero la grafica dei dettagli del prodotto che sarà visibile nella parte sinistra della GUI
-
     img64->setText(tr("nessun file selezionato"));
     test->addWidget(img64);
     searchImg = new QPushButton(tr("browse"));
@@ -13,10 +12,13 @@ ProdDetails::ProdDetails(QWidget *parent): QFormLayout(parent),prod(nullptr), na
     //bottone inserimento immagine
     connect(searchImg,&QPushButton::clicked,[this](){
         QString path = QFileDialog::getOpenFileName(this->parentWidget(), "Select Image", "/home", "Image (*.jpeg *.jpg *.png)");
+
         if ( path.endsWith("jpg") || path.endsWith("png") || path.endsWith("jpeg") ) {
             this->path = path;
             QPixmap img(this->path);
             img64->setPixmap(img.scaled(80,80));
+            if(QPixmap(path).isNull())
+                QMessageBox::critical(this->parentWidget(),"Errore Caricamento","attenzione l'immagine non è stata caricata con successo controllare che l'immagine sia leggibile.");
         }
     });
 
@@ -58,8 +60,7 @@ void ProdDetails::showDet(Prodotto &prod)
      */
     path = QString::fromStdString(prod.GetImg());
     if(!QPixmap(path).isNull())
-    img64->setPixmap(QPixmap(path).scaled(80,80));
-
+     img64->setPixmap(QPixmap(path).scaled(80,80));
     /* vari controlli per identificare il tipo a run time del Prodotto
      * per generare i campi necessari per ogni tipologia del Prodotto
      */

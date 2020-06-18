@@ -4,6 +4,10 @@
 #include <myexception.h>
 #include <string>
 
+enum TipoCapelli { GENERALE, RICCI, LISCI, COLORATI, ROVINATI };
+enum TipoShampoo { GENERICO, VOLUMIZZANTE, ANTICADUTA, SEBOREGOLATORE, ANTIFORFORA, COLORANTE };
+enum TipoTinta{OLIO, CREMA};
+
 class Prodotto
 {
 private:
@@ -61,9 +65,6 @@ public:
     virtual ProdChimico* operator*();
 };
 
-enum TipoCapelli { GENERALE, RICCI, LISCI, COLORATI, ROVINATI };
-enum TipoShampoo { GENERICO, VOLUMIZZANTE, ANTICADUTA, SEBOREGOLATORE, ANTIFORFORA, COLORANTE };
-
 class Shampoo : virtual public ProdChimico
 {
 protected:
@@ -106,8 +107,6 @@ public:
     virtual Shampoo& operator =(const Shampoo& s);
     virtual Shampoo* operator*();
 };
-
-enum TipoTinta{OLIO, CREMA};
 
 class Tinte : virtual public ProdChimico
 {
@@ -154,5 +153,6 @@ public:
     virtual ShamColor& operator =(const ShamColor& sC);
     virtual ShamColor* operator*();
 };
+
 #endif // PRODOTTO_H
 

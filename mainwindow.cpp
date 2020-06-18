@@ -11,7 +11,7 @@ MainWindow::MainWindow(QWidget* parent): QDialog(parent), c(new Container<Prodot
     QAction *actSave = new QAction(tr("&Salva"));
     QAction *actLoad = new QAction(tr("&Carica"));
 
-    //connect(actSave, &QAction::triggered,  )
+    //connesione Azioni salva e carica
     connect(actSave,&QAction::triggered,this, &MainWindow::salva);
     connect(actLoad, &QAction::triggered, this, &MainWindow::carica);
 
@@ -22,7 +22,7 @@ MainWindow::MainWindow(QWidget* parent): QDialog(parent), c(new Container<Prodot
 
     QHBoxLayout *body = new QHBoxLayout(); // layout
     mainBody->addLayout(body);
-    resize(600, 500);
+    resize(800, 600);
 
 
     QVBoxLayout *left = new QVBoxLayout;
@@ -40,7 +40,8 @@ MainWindow::MainWindow(QWidget* parent): QDialog(parent), c(new Container<Prodot
 
     //aggiunto un bordo nero sul fondo di ogni riga della Lista per definire la suddivisione degli Oggetti nella Lista
     varList->setStyleSheet(tr("QListWidget::item{border-bottom:1px solid black;}"));
-
+    varList->setFlow(QListView::TopToBottom);
+    varList->setResizeMode(QListView::Adjust);
     /* alla pressione della Lista di Oggetti selezionando una riga vado a mostrare i parametri della riga
      * stessa a lato oppure se vengono selezionati più valori mostro campi vuoti e blocco il pulsante di
      * rimozione per evitare problemi di rimozione di oggetti inesistenti
