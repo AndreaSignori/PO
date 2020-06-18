@@ -289,9 +289,7 @@ Tinte::Tinte(string c, string n, string cP, string img, double p, int dis, int q
     numero(num),
     tt(t)
 {
-    if(numero.length()>4){
-        throw MyException("Codice tinta non valido, ha un massimo di 4 caratteri");
-    }
+
 }
 
 Tinte::Tinte(const Tinte *t):
