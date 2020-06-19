@@ -5,11 +5,11 @@
 #include <prodotto.h>
 #include <typeinfo>
 
+
 class ProdDetails : public QFormLayout
 {
 private:
     Prodotto* prod;
-
     QLineEdit* name, *cod, *casaProd;
     QLabel* img64;
     QDoubleSpinBox* prezzo;

@@ -1,5 +1,5 @@
 #include <mainwindow.h>
-
+#include <iostream>
 MainWindow::MainWindow(QWidget* parent): QDialog(parent), c(new Container<Prodotto>()), varDet(new ProdDetails)
 {
     setWindowTitle("Prodotti Deluxe Parrucchieri");
@@ -13,7 +13,7 @@ MainWindow::MainWindow(QWidget* parent): QDialog(parent), c(new Container<Prodot
 
     //connesione Azioni salva e carica
     connect(actSave,&QAction::triggered,this, &MainWindow::salva);
-    connect(actLoad, &QAction::triggered, this, &MainWindow::carica);
+    connect(actLoad, &QAction::triggered, this, [this](){carica();update();});
 
     menu->addAction(actSave);
     menu->addAction(actLoad);
@@ -32,7 +32,7 @@ MainWindow::MainWindow(QWidget* parent): QDialog(parent), c(new Container<Prodot
     varList = new ListWidget(c);
 
     //tasto "remove" rimuove la riga selezionata nella lista
-    QPushButton* remove = new QPushButton("remove");
+    QPushButton* remove = new QPushButton("Elimina Prodotto");
     //popolo la list widget
     for (auto it = c->begin(); it; ++it)
         varList->addEntry(it);
@@ -60,7 +60,7 @@ MainWindow::MainWindow(QWidget* parent): QDialog(parent), c(new Container<Prodot
         }
     });
     //bottone aggiunta nuovo Prodotto(Oggetto)
-    QPushButton* add = new QPushButton("Nuovo Prodotto");
+    QPushButton* add = new QPushButton("Aggiungi Prodotto");
     //creo un segnale alla sua pressione che apre una nuova finestra di dialogo
     connect(add, &QPushButton::clicked, [this] (bool) {
         AddWindow(this,varList,c).exec();
@@ -81,7 +81,7 @@ MainWindow::MainWindow(QWidget* parent): QDialog(parent), c(new Container<Prodot
 
     //pulsante per accettare le modifiche effettuate ad un Prodotto
     QPushButton* modifiche = new QPushButton;
-    modifiche->setText("Apply");
+    modifiche->setText("Applica");
 
     /* pulsante che imposta tutti i campi del prodotto selezionato a parametri di default
      * è necessario premere il tasto Apply per accettare le modifiche
@@ -89,7 +89,10 @@ MainWindow::MainWindow(QWidget* parent): QDialog(parent), c(new Container<Prodot
     QPushButton* reset = new QPushButton;
     reset->setText("Reset");
     //segnale per tasto Apply
-    connect(modifiche, &QPushButton::clicked, varDet, &ProdDetails::apply);
+    connect(modifiche, &QPushButton::clicked, varDet, [this](bool){
+        varDet->apply();
+        update();
+    });
     //segnale per tasto Reset
     /* la pressione del pulsante genera una finestra di dialogo nel caso siano selezionati più Prodotti
      * contemporaneamente, nel caso vada a buon fine si avranno i campi del Prodotto a valori vuoti
@@ -137,6 +140,8 @@ void MainWindow::salva()    {
 }
 
 void MainWindow::carica() {
+    c->~Container();
+    c = new Container<Prodotto>();
     try {
         IO_Container::fromJsonToCont(DataAccObj::getFile(),c);
     } catch (MyException e) {
@@ -144,5 +149,15 @@ void MainWindow::carica() {
         if(QMessageBox::question(this, "Errore", "Non e' stato possibile caricare una lista prodotti, vuoi caricare la lista di default?", QMessageBox::Yes|QMessageBox::No) == QMessageBox::Yes)   {
             IO_Container::fromJsonToCont(DataAccObj::fromStringToJson(defaultlist::json),c);
         }
+    }
+}
+
+void MainWindow::update()
+{
+    std::cout<<"ciao";
+    varList->clear();
+    for(auto it = c->begin(); it ; ++it){
+        std::cout<<"la fine";
+        varList->addEntry(it);
     }
 }

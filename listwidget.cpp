@@ -12,14 +12,24 @@ ListWidget::ListWidget(Container<Prodotto>* c, QWidget* parent):QListWidget(pare
 {
     setSelectionMode(QAbstractItemView::ExtendedSelection);
 }
+
+QLabel *ListWidget::getLn() const
+{
+    return ln;
+}
+
+QLabel *ListWidget::getLc() const
+{
+    return lc;
+}
 //costruisce una lista con nome e codice del prodotto
 void ListWidget::addEntry(const Container<Prodotto>::iterator &d)
 {
     QWidget* main = new QWidget();
     QHBoxLayout* lay1 = new QHBoxLayout();
 
-    QLabel* ln = new QLabel();
-    QLabel* lc = new QLabel();
+    ln = new QLabel();
+    lc = new QLabel();
 
     ln->setText(QString::fromStdString(d->GetNome()));
     lc->setText(QString::fromStdString(d->GetCodice()));

@@ -16,7 +16,7 @@ private:
     int discount;
 public:
     Prodotto(std::string c = "", std::string n = "", std::string cP = "",std::string img = "", double p = 0.0 , int dis = 0);
-
+    Prodotto(const Prodotto&) = delete;
     virtual ~Prodotto() = 0;
 
 

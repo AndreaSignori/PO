@@ -1,22 +1,21 @@
 #ifndef VALIDATOR_H
 #define VALIDATOR_H
 
-/*!
- * \class Validator
- * classe funtore base astratta dove l'operatore parentesi
- * ritorna un booleano che va a rappresentare se l'oggetto
- * argomento sottostà al criterio.
+/*
+ * class Validator
+ * classe base astratta che controlla se ciò che sta all'interno
+ * delle parentesi è valido o no restituendo un bool.
  */
 template <typename T>
 class Validator {
 public:
-    /// solo perchè è alla base della gerarchia, distruttore virtuale
+    // distruttore virtuale, perchè base della gerarchia
     virtual ~Validator() {}
 
-    /// per replicare l' istanza della classe
+    // metodo clone per clonare l'istanza
     virtual Validator<T>* clone() const = 0;
 
-    /// operatore di validazione
+    // overload di operator() per ritornare il bool di controllo
     virtual bool operator () (const T &) const = 0;
 };
 

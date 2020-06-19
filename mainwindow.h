@@ -25,7 +25,7 @@ public:
 private slots:
     void salva();
     void carica();
-    //void update();
+    void update();
 };
 
 #endif // MAINWINDOW_H

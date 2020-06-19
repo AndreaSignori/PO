@@ -9,7 +9,7 @@
 
 class ListWidgetItem : public QListWidgetItem {
     Container<Prodotto>::iterator iterator;
-    /// costruttore privato! solo friend class ListWidget può instanziare
+    // costruttore privato! solo ListWidget può instanziare perchè è friend class
     ListWidgetItem(const Container<Prodotto>::iterator &it);
 public:
 
@@ -20,8 +20,12 @@ public:
 class ListWidget : public QListWidget{
 private:
     Container<Prodotto> *c;
+    QLabel *ln, *lc;
 public:
     ListWidget(Container<Prodotto>* c = nullptr, QWidget* parent = nullptr);
+
+    QLabel* getLn() const;
+    QLabel* getLc() const;
 
     void addEntry(const Container<Prodotto>::iterator& d);
 public slots:

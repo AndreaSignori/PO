@@ -11,14 +11,8 @@ int main(int argc, char *argv[])
 {
 
     QApplication a(argc, argv);
-
     DataAccObj::setPath("prodotti.json");
-
-
     MainWindow main;
     main.show();
     return a.exec();
-/*
-    QCoreApplication a(argc, argv);
-    */
 }

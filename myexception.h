@@ -3,16 +3,10 @@
 #include <string>
 #include <exception>
 
-//!
-//! Ho usato questa classe per includere header temporanei,
-//! come iostream o QDebug, o definire costanti. Alla fine
-//! ho lasciato la classe qui.
-//!
 using std::string;
 
-/*!
- * \class MyException
- * \brief exception class
+/* classe myException
+ * genera eccezzioni e blocca il programma mostrando un messaggio
  */
 class MyException : public std::exception {
     const string msg;

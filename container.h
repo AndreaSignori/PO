@@ -18,11 +18,10 @@ private:
         T* info;
         node* previous, * next;
 
-        /*!
-         * \brief costruttore per collocare il nodo in posizione
-         * \param info puntatore all' oggetto da inserire
-         * \param previous nodo precedente
-         * \param next nodo successivo
+        /* costruttore nodo
+         * info: puntatore al nodo da inserire
+         * previous: nodo precedente
+         * next: nodo successivo
          */
         node(T* info, node* previous = nullptr, node* next = nullptr)
             : info(info), previous(previous), next(next) {
@@ -32,13 +31,13 @@ private:
                 next->previous = this;
         }
 
-        /// non permetto la costruzione di copia
+        // evito di avere un costruttore di copia
         node(const node&) = delete;
 
-        /// non permetto l' assegnamento
+        // abolisco l'assegnamento
         node& operator = (const node&) = delete;
 
-        /// delete dell' oggetto
+        // distruttore
         ~node() {
             if (info)
                 delete info;
@@ -48,21 +47,15 @@ private:
         friend class iterator;
     };
 
-    /*!
-     * \brief first inizio coda
-     * \brief last fine coda
-     */
+    //inizio e fine coda
     node* first, * last;
 
 public:
-    /*!
-      \class iterator
-     * \brief iterator per iterare nel Container
+    /* classe per spostarsi all'interno del
+     * container
      */
     class iterator {
-        /*!
-         * \class accept_all
-         * \brief Validator che convalida tutti gli oggetti
+        /*valido tutti gli oggetti
          */
         class accept_all : public Validator<T> {
             // qui implemento i metodi virtuali puri di Validator<T>
@@ -72,10 +65,7 @@ public:
         Validator<T>* validate;
         node* current;
 
-        /*!
-         * \brief costruttore per iterare su Container solo sugli oggetti validabili
-         * \param first inizio della sequenza
-         * \param validate Validator per validare la sequenza, come default valida tutto
+        /* costruttore per scorrere il container con solo oggetti validati
          */
         iterator(node* first, Validator<T>* validate = nullptr) : validate(validate), current(first) {
             if (!validate)
@@ -85,7 +75,7 @@ public:
                 operator ++();
         }
 
-        /// cancella l'oggetto, privata e utilizzabile solo da Container<T>
+        // elimina l'oggetto, privata solo utilizzabile da Container<T>
         void trash() const {
             if (!current)
                 return;
@@ -96,15 +86,15 @@ public:
             delete current;
         }
 
-        /// Container ha potere assoluto su iterator come su node
+
         friend class Container;
 
     public:
-        /// Copy constructor chiama Validator<T>::clone
+
         iterator(const iterator& it)
             : validate(it.validate->clone()), current(it.current) {}
 
-        /// Assignment operator per finire la rule of three
+        // Assignment operator per finire la rule of three
         iterator& operator = (const iterator& it) {
             if (validate)
                 delete validate;
@@ -112,17 +102,17 @@ public:
             current = it.current;
         }
 
-        /// delete dell' oggetto
+        // delete dell' oggetto
         virtual ~iterator() {
             delete validate;
         }
 
-        /// per verificare se l'iteratore ha finito il container, cast a bool
+        // per verificare se l'iteratore ha finito il container, cast a bool
         operator bool() const {
             return current;
         }
 
-        /// per passare al nodo seguente nella sequenza
+        //  passa al nodo seguente nella sequenza
         // (ho scelto di non fare anche l'operatore postfisso it++, ma tenere solo ++it )
         T* operator ++() {
             if (current)
@@ -130,17 +120,17 @@ public:
             return current ? current->info : nullptr;
         }
 
-        ///per accedere all elemento come referenza
+        // accedi all'elemento come referenza
         T& operator * () const { return *(current->info); }
 
-        ///per accedere all elemento come puntatore
+        // accedi all'elemento come puntatore
         T* operator ->() const { return current->info; }
     };
 
-    /// container vuoto
+    // container vuoto
     Container() : first(nullptr), last(nullptr) {}
 
-    /// non permetto la costruzione di copia
+    // non permetto la costruzione di copia
     Container(const Container<T>& rhs) = delete;
     virtual ~Container() {
         while (first)
