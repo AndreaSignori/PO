@@ -201,7 +201,7 @@ void ProdDetails::clear()
             removeRow(tS);
 
         }
-    }
+   }
     this->prod = nullptr;
 }
 //funzione per applicare le modifiche al prodotto

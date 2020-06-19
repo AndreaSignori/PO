@@ -191,6 +191,12 @@ public:
         it.trash();
     }
 
+    void free(){
+        while(first){
+            first->~node();
+            first = first->next;
+        }
+    }
 };
 
 #endif // CONTAINER_H

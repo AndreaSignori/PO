@@ -13,7 +13,7 @@ MainWindow::MainWindow(QWidget* parent): QDialog(parent), c(new Container<Prodot
 
     //connesione Azioni salva e carica
     connect(actSave,&QAction::triggered,this, &MainWindow::salva);
-    connect(actLoad, &QAction::triggered, this, [this](){carica();update();});
+    connect(actLoad, &QAction::triggered, this, [this](){varDet->clear();carica();update();});
 
     menu->addAction(actSave);
     menu->addAction(actLoad);
@@ -140,8 +140,7 @@ void MainWindow::salva()    {
 }
 
 void MainWindow::carica() {
-    c->~Container();
-    c = new Container<Prodotto>();
+    c->free();
     try {
         IO_Container::fromJsonToCont(DataAccObj::getFile(),c);
     } catch (MyException e) {
@@ -154,10 +153,8 @@ void MainWindow::carica() {
 
 void MainWindow::update()
 {
-    std::cout<<"ciao";
     varList->clear();
     for(auto it = c->begin(); it ; ++it){
-        std::cout<<"la fine";
         varList->addEntry(it);
     }
 }

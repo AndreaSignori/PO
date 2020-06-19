@@ -1,5 +1,5 @@
 #include "io_container.h"
-
+#include <iostream>
 QJsonObject IO_Container::fromProdToJson(const typename Container<Prodotto>::iterator &i) {
     QJsonObject file;
     ProdChimico const *PCptr = dynamic_cast<const ProdChimico*>(&*i);
@@ -56,8 +56,10 @@ QJsonObject IO_Container::fromContToJson(Container<Prodotto> *c) {
 
 void IO_Container::fromJsonToCont(const QJsonObject &file,Container<Prodotto> *c)   {
     QJsonArray vet = file["data"].toArray();
-    for(int i = 0; i < vet.size(); i++)
-        c->push_front(fromJsonToProd(vet[i].toObject()));
+    for(int i = 0; i < vet.size(); i++){
+        c->push_back(fromJsonToProd(vet[i].toObject()));
         //fromJsonToProd(vet[i].toObject());
+    }
+
 }
 
