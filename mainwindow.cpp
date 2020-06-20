@@ -2,7 +2,7 @@
 #include <iostream>
 MainWindow::MainWindow(QWidget* parent): QDialog(parent), c(new Container<Prodotto>()), varDet(new ProdDetails)
 {
-    setWindowTitle("Prodotti Deluxe Parrucchieri");
+    setWindowTitle("Stylist Deluxe");
     QVBoxLayout *mainBody = new QVBoxLayout(this);
 
     QMenuBar *menuBar = new QMenuBar();

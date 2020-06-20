@@ -285,8 +285,8 @@ void ProdDetails::apply()
         tC->setCurrentIndex(0);
         tS->setCurrentIndex(0);
     }
-    QString title("Reset Parmetri"),
-            text("Ricordati di premere Apply se vuoi confermare il reset");
+    QString title("Reset Parametri"),
+            text("Ricordati di premere Applica se vuoi confermare il reset");
 
     QMessageBox::about(this->parentWidget(),title,text);
 

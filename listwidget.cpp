@@ -51,7 +51,7 @@ void ListWidget::addEntry(const Container<Prodotto>::iterator &d)
 void ListWidget::rmSelected(bool,ProdDetails* p) {
     auto selected_items = selectedItems();
     if (!selected_items.count()) return;
-    if (QMessageBox::question(this, "Delete", "Delete selected items?", QMessageBox::Yes|QMessageBox::No) == QMessageBox::Yes)
+    if (QMessageBox::question(this, "Eliminazione Prodotto", "Vuoi eliminare il Prodotto selezionato?", QMessageBox::Yes|QMessageBox::No) == QMessageBox::Yes)
         for (auto item : selected_items) {
             p->clear();
             c->remove( static_cast<ListWidgetItem*>(item)->getProdotto() );
