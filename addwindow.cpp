@@ -2,6 +2,7 @@
 
 AddWindow::AddWindow(QWidget *parent, ListWidget* l,Container<Prodotto>* pr): QDialog(parent), l(l), pr(pr), menu(new QComboBox()), p(nullptr), pd(new ProdDetails())
 {
+    //creazione del Layout del From di aggiunta utilizzando ProdDetails
     QVBoxLayout *body = new QVBoxLayout(this);
     QHBoxLayout *selezione = new QHBoxLayout();
     setWindowTitle("Inserisci un nuovo prodotto");
@@ -39,7 +40,7 @@ AddWindow::AddWindow(QWidget *parent, ListWidget* l,Container<Prodotto>* pr): QD
     body->addWidget(conferma);
     ChangeForm();
 }
-
+//funzione per decidere che tipo di Prodotto si va a creare
 void AddWindow::ChangeForm(){
     pd->clear();
     if(menu->currentIndex()==0)

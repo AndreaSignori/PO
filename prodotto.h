@@ -10,8 +10,10 @@ enum TipoTinta{OLIO, CREMA};
 
 class Prodotto
 {
+protected:
+    std::string codice;
 private:
-    std::string codice, nome, casaProd, img64;
+    std::string nome, casaProd, img64;
     double prezzo;
     int discount;
 public:
@@ -28,7 +30,7 @@ public:
     std::string GetImg() const;
 
     void SetImg64(std::string img);
-    void SetCodice(std::string newcodice);
+    virtual void SetCodice(std::string newcodice) = 0;
     void SetNome(std::string newnome);
     void SetPrezzo(double newprezzo);
     void SetDiscount(int newdiscount);
@@ -59,7 +61,8 @@ public:
 
     //clone
     virtual ProdChimico* clone() const;
-
+    //virtual
+    void SetCodice(std::string newcodice);
     //overload
     virtual ProdChimico& operator=(const ProdChimico& pC);
     virtual ProdChimico* operator*();
@@ -102,7 +105,8 @@ public:
     const char* getArrayTS() const;
 
     virtual Shampoo* clone() const;
-
+    //virtual
+    void SetCodice(std::string newcodice);
     //overload
     virtual Shampoo& operator =(const Shampoo& s);
     virtual Shampoo* operator*();
@@ -132,6 +136,8 @@ public:
     const char* getTipoTinta() const;
     const char* getArrayTt() const;
 
+    //virtual
+    void SetCodice(std::string newcodice);
     //overload
     virtual Tinte* clone() const;
     virtual Tinte& operator =(const Tinte& t);
@@ -148,7 +154,8 @@ public:
     ~ShamColor() {}
 
     virtual ShamColor* clone() const;
-
+    //virtual
+    void SetCodice(std::string newcodice);
     //overload
     virtual ShamColor& operator =(const ShamColor& sC);
     virtual ShamColor* operator*();

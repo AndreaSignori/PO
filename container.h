@@ -137,52 +137,51 @@ public:
             remove(begin());
     }
 
-    /// per inserire un elemento all' inizio della lista
+    // inserisce un elemento all' inizio della lista
     void push_front(T* info) {
         first = new node(info, nullptr, first);
         if (!last)
             last = first;
     }
 
-    /// per inserire un elemento all' inizio della lista
+    //  inserisce un elemento all' inizio della lista
     void push_front(const T& info) {
         push_front(new T(info));
     }
 
-    /// per inserire un elemento alla fine della lista
+    // inserisce un elemento alla fine della lista
     void push_back(T* info) {
         last = new node(info, last, nullptr);
         if (!first)
             first = last;
     }
 
-    /// per inserire un elemento alla fine della lista
+    // per inserisce un elemento alla fine della lista
     void push_back(const T& info) {
         push_back(new T(info));
     }
 
-    /*!
-     * \brief per iterare su Container
-     * \param validate criterio di selezione elementi della lista
-     * \return Iteratore alla sottolista che soddisfa il criterio
+    /* serve ad iterare su Container
+       fa un controllo con validate sul nodo first per vedere se è valido
      */
     iterator select(Validator<T>* validate) const {
         return iterator(first, validate);
     }
 
-    /// iteratore all inizio di una lista
+    // iteratore all inizio di una lista
     iterator begin() const {
         return iterator(first);
     }
 
-    /// iteratore all ultimo oggetto della lista
+    // iteratore all ultimo oggetto della lista
     iterator end() const {
         return iterator(last);
     }
 
-    /// per rimuovere un oggetto dalla lista;
-    /// serve controllare se sia all inizio o alla fine
-    /// per far si che fist e last puntino a valori validi
+    /* per rimuovere un oggetto dalla lista;
+       serve controllare se sia all inizio o alla fine
+       per far si che fist e last puntino a valori validi
+    */
     void remove(iterator it) {
         if (it.current == first)
             first = first->next;
@@ -190,7 +189,7 @@ public:
             last = last->previous;
         it.trash();
     }
-
+    //libero il container
     void free(){
         while(first){
             first->~node();

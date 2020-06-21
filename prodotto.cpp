@@ -60,11 +60,6 @@ void Prodotto::SetImg64(string img)
     img64 = img;
 }
 
-void Prodotto::SetCodice(string newcodice) {
-    if (newcodice != "")
-        codice = newcodice;
-}
-
 void Prodotto::SetNome(string newnome) {
     if (newnome != "")
         nome = newnome;
@@ -132,6 +127,18 @@ ProdChimico *ProdChimico::clone() const
 {
     return new ProdChimico(this);
 }
+
+void ProdChimico::SetCodice(string newcodice)
+{
+    if(newcodice != ""){
+        if(newcodice.at(newcodice.length()-2) != 'P' || newcodice.at(newcodice.length()-1) != 'C'){
+            cout<<"heila";
+            codice = newcodice + "PC";
+        }else{
+            cout<<"heila1";
+            codice = newcodice;
+        }
+}}
 
 ProdChimico &ProdChimico::operator=(const ProdChimico &pC)
 {
@@ -261,6 +268,17 @@ Shampoo *Shampoo::clone() const
     return new Shampoo(this);
 }
 
+void Shampoo::SetCodice(string newcodice)
+{
+    if(newcodice != ""){
+        if( newcodice.at(newcodice.length()-1) != 'S'){
+            codice = newcodice + "S";
+        }else{
+            codice = newcodice;
+        }
+}
+}
+
 Shampoo &Shampoo::operator =(const Shampoo &s)
 {
     this->SetCodice(s.GetCodice());
@@ -342,6 +360,17 @@ const char* Tinte::getArrayTt() const{
     return tipoT[0];
 }
 
+void Tinte::SetCodice(string newcodice)
+{
+    if(newcodice != ""){
+        if(newcodice.at(newcodice.length()-1) != 'T'){
+            codice = newcodice + "T";
+        }else{
+            codice = newcodice;
+        }
+}
+}
+
 Tinte *Tinte::clone() const
 {
     return new Tinte(this);
@@ -386,6 +415,17 @@ ShamColor::ShamColor(const ShamColor *sC):
 ShamColor *ShamColor::clone() const
 {
     return new ShamColor(this);
+}
+
+void ShamColor::SetCodice(string newcodice)
+{
+    if(newcodice != ""){
+        if(newcodice.at(newcodice.length()-2) != 'S' || newcodice.at(newcodice.length()-1) != 'C'){
+            codice = newcodice + "SC";
+        }else{
+            codice = newcodice;
+        }
+}
 }
 ShamColor &ShamColor::operator =(const ShamColor& sC)
 {
