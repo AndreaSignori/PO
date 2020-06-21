@@ -11,6 +11,10 @@
 class DataAccObj
 {
 public:
+    /*
+     * Lo scopo della classe DAO è quella di fornire tutti i metodi base per la gestione dell'Input/Output
+     * di dati da/a un file json.
+    */
     static void setPath(const std::string &path);
     static std::string getPath();
     static void setFile(const QJsonObject &file);
